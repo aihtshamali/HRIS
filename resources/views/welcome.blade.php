@@ -46,6 +46,7 @@
 	}
 	.diagram{margin:auto;color:#fff;font-size:14px;	}
 	.donutchart tr td{line-height: 30px !important;}
+	.brown{background: #a52a2a  !important;}
 </style>
 @endsection
 @section('content')
@@ -72,7 +73,7 @@
         <h5 class="card-title col-sm-7 offset-md-5 float-right">Present</h5>
         <h2 class="card-text">20</h2>
         <hr/>
-            <a href="#!"><h6><i class="feather icon-file-text"></i> Show All</h6></a>
+            <a href="{{route('present')}}"><h6><i class="feather icon-file-text"></i> Show All</h6></a>
       </div>
     </div>
   </div>
@@ -85,7 +86,7 @@
         <h5 class="card-title col-sm-7 offset-md-5 float-right">Absent</h5>
         <h2 class="card-text">20</h2>
         <hr/>
-            <a href="#!"><h6><i class="feather icon-file-text"></i> Show All</h6></a>
+            <a href="{{route('Absent')}}"><h6><i class="feather icon-file-text"></i> Show All</h6></a>
       </div>
     </div>
   </div>
@@ -107,14 +108,14 @@
 	<div class="col-sm-4 offset-md-2">
     <div class="card">
       <div class="card-body">
-          <div class="col-md-11 absiconcardbordrad green" style="padding: 1% !important;">
+          <div class="col-md-11 absiconcardbordrad" style="padding: 1% !important; background-image: linear-gradient(to right, #68b88b, #a5cda2, #6a856f7d)">
 					<table class="donutchart">
 						<tr><th>sortOrder</th><th>value</th><th>color</th><th>description</th></tr>
-						<tr><td>1</td><td>10</td><td>red</td><td>kl</td></tr>
-						<tr><td>2</td><td>40</td><td>blue</td><td>parso</td></tr>
-						<tr><td>3</td><td>50</td><td>green</td><td>tarso</td></tr>
-						<tr><td>4</td><td>70</td><td>black</td><td>us sy pichla</td></tr>
-						<tr><td>5</td><td>15</td><td>greenyellow</td><td>usk b pichla</td></tr>
+						<tr><td>1</td><td>10</td><td>purple</td><td>kl</td></tr>
+						<tr><td>2</td><td>10</td><td>blue</td><td>parso</td></tr>
+						<tr><td>3</td><td>10</td><td>green</td><td>tarso</td></tr>
+						<tr><td>4</td><td>30</td><td>black</td><td>us sy pichla</td></tr>
+						<tr><td>5</td><td>10</td><td>brown</td><td>usk b pichla</td></tr>
 					</table>
           </div>
         <h5 class="card-title-prog paddingtop-14">Absentees - Last 5 days</h5>
@@ -126,7 +127,7 @@
 	<div class="col-sm-4">
     <div class="card">
       <div class="card-body">
-          <div class="col-md-11 absiconcardbordrad red">
+          <div class="col-md-11 absiconcardbordrad brown">
 					<div
 						id="diagram-id-1"
 						class="diagram"

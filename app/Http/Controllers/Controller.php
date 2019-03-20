@@ -21,4 +21,12 @@ class Controller extends BaseController
     {
       return view('attendance.dailyattendance');
     }
+    public function present()
+    {
+      return view('attendance.present');
+    }
+    public function Absent()
+    {
+      return view('attendance.Absent');
+    }
 }
