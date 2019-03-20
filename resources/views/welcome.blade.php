@@ -27,7 +27,7 @@
     .card-title-prog, .card-text-prog{clear:both;padding: 0px;}
     .card-text{color: #404e6796;}
     .card-title{color:#404e67;}
-    .paddingtop-14{padding-top:14% !important;}
+    .paddingtop-14{padding-top:26% !important;}
     /* #chartdiv {width: 30%;height: 100px;margin:auto;} */
     #backButton {
 		border-radius: 4px;
@@ -49,7 +49,7 @@
 </style>
 @endsection
 @section('content')
-<div class="row">
+<div class="row" style="padding:3% !important;">
   <div class="col-sm-3">
     <div class="card">
       <div class="card-body">
@@ -104,7 +104,7 @@
   </div>
 </div>
 <div class="row" style="margin-top:3%;">
-	<div class="col-sm-6">
+	<div class="col-sm-4 offset-md-2">
     <div class="card">
       <div class="card-body">
           <div class="col-md-11 absiconcardbordrad green" style="padding: 1% !important;">
@@ -123,7 +123,7 @@
       </div>
     </div>
   </div>
-	<div class="col-sm-6">
+	<div class="col-sm-4">
     <div class="card">
       <div class="card-body">
           <div class="col-md-11 absiconcardbordrad red">

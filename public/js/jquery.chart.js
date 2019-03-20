@@ -145,7 +145,7 @@
 	$.fn.donutChart.defaults = {
 		width: 250,
 		height: 100,
-		legendSizePadding: 0.101,
+		legendSizePadding: 0.12,
 		label: "Graph {0}", 
 		hasBorder: false
 	};
