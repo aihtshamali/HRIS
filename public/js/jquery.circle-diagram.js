@@ -31,6 +31,7 @@
 			size: "100",
 			borderWidth: "10",
 			bgFill: '#bbb',
+			whi: '#fff',
 			frFill: '#fff',
 			textSize: 50 + 'px',
 			font: "inherit",
@@ -86,16 +87,16 @@
 				"font-size": "20px",
 				"font-family": options.font,
 				"height": parseFloat(options.size) + "px",
-				"line-height": parseFloat(options.size) + "px",
+				"line-height": parseFloat(options.sizelineheight) + "px",
 				"color": "#fff"
 			})
-			.text(options.percent)
+			.text(options.month)
 			.appendTo($this);
 
 		var bg = $('<div></div>')
 			.css(cssElems)
 			.css({
-				"border-color": options.frFill,
+				"border-color": options.whi,
 				"border-left-color": "transparent",
 				"border-bottom-color": "transparent"
 			})

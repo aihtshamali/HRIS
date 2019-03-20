@@ -24,9 +24,10 @@
     .sky{background: #1cbed3;color:#fff;}
     .green{background: #5eb662;color:#fff;}
     .card-title, .card-text{text-align: right;clear:both;padding: 0px;}
+    .card-title-prog, .card-text-prog{clear:both;padding: 0px;}
     .card-text{color: #404e6796;}
     .card-title{color:#404e67;}
-    .paddingtop-16{padding-top:16% !important;}
+    .paddingtop-14{padding-top:14% !important;}
     /* #chartdiv {width: 30%;height: 100px;margin:auto;} */
     #backButton {
 		border-radius: 4px;
@@ -44,6 +45,7 @@
 		display: none;
 	}
 	.diagram{margin:auto;color:#fff;font-size:14px;	}
+	.donutchart tr td{line-height: 30px !important;}
 </style>
 @endsection
 @section('content')
@@ -93,7 +95,7 @@
           <div class="col-md-3 absiconcard sky">
             <i class="feather icon-clock"></i>
           </div>
-        <h5 class="card-title col-sm-7 offset-md-5 float-right">Late comers</h5>
+        <h5 class="card-title col-sm-7 offset-md-5 float-right">Late Comers</h5>
         <h2 class="card-text">20</h2>
         <hr/>
             <a href="#!"><h6><i class="feather icon-file-text"></i> Show All</h6></a>
@@ -101,17 +103,38 @@
     </div>
   </div>
 </div>
-<div class="row">
-<div class="col-sm-4">
+<div class="row" style="margin-top:3%;">
+	<div class="col-sm-6">
     <div class="card">
       <div class="card-body">
-          <div class="col-md-11 absiconcardbordrad green">
+          <div class="col-md-11 absiconcardbordrad green" style="padding: 1% !important;">
+					<table class="donutchart">
+						<tr><th>sortOrder</th><th>value</th><th>color</th><th>description</th></tr>
+						<tr><td>1</td><td>10</td><td>red</td><td>kl</td></tr>
+						<tr><td>2</td><td>40</td><td>blue</td><td>parso</td></tr>
+						<tr><td>3</td><td>50</td><td>green</td><td>tarso</td></tr>
+						<tr><td>4</td><td>70</td><td>black</td><td>us sy pichla</td></tr>
+						<tr><td>5</td><td>15</td><td>greenyellow</td><td>usk b pichla</td></tr>
+					</table>
+          </div>
+        <h5 class="card-title-prog paddingtop-14">Absentees - Last 5 days</h5>
+        <hr/>
+            <a href="#!"><h6><i class="feather icon-clock"></i> Updated few moments ago</h6></a>
+      </div>
+    </div>
+  </div>
+	<div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+          <div class="col-md-11 absiconcardbordrad red">
 					<div
 						id="diagram-id-1"
 						class="diagram"
 						data-circle-diagram='{
 							"percent": "34.2%",
+							"month": "january",
 							"size": "100px",
+							"sizelineheight": "90px",
 							"borderWidth": "4",
 							"bgFill": "#cacaca",
 							"frFill": "#80d03c",
@@ -119,147 +142,38 @@
 							"textColor": "#585858"
 							}'>
 					</div>
-					<!-- <div id="diagram-id-2" class="diagram"></div> -->
           <button class="btn invisible" id="backButton">Back</button>
           </div>
-        <h5 class="card-title paddingtop-16">Late comers</h5>
-        <h2 class="card-text">20</h2>
+        <h5 class="card-title-prog paddingtop-14">Absentees - By Month</h5>
         <hr/>
-            <a href="#!"><h6><i class="feather icon-file-text"></i> Show All</h6></a>
+            <a href="#!"><h6><i class="feather icon-clock"></i> Updated Today</h6></a>
       </div>
     </div>
   </div>
 </div>
 @endsection
 @section("js_scripts")
-<!-- Resources -->
-<!-- <script src="js/app.js"></script> -->
-<!-- <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script> -->
 <script src="{{asset('js/jquery.circle-diagram.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
-<!-- Chart code -->
-<!-- <script>
-window.onload = function () {
+<script src="{{asset('js/jquery.chart.js')}}"></script>
+<script>
+		$(function(){
+			if(!(/^\?noconvert/gi).test(location.search))
+				$(".donutchart").donutChart().css("border","solid 1px black");
+		});
+</script>
+<script type="text/javascript">
 
-var totalVisitors = 883000;
-var visitorsData = {
-	"New vs Returning Visitors": [{
-		click: visitorsChartDrilldownHandler,
-		cursor: "pointer",
-		explodeOnClick: false,
-		innerRadius: "75%",
-		legendMarkerType: "square",
-		name: "New vs Returning Visitors",
-		radius: "100%",
-		showInLegend: true,
-		startAngle: 90,
-		type: "doughnut",
-		dataPoints: [
-			{ y: 519960, name: "New Visitors", color: "#E7823A" },
-			{ y: 363040, name: "Returning Visitors", color: "#546BC1" }
-		]
-	}],
-	"New Visitors": [{
-		color: "#E7823A",
-		name: "New Visitors",
-		type: "column",
-		xValueFormatString: "MMM YYYY",
-		dataPoints: [
-			{ x: new Date("1 Jan 2015"), y: 33000 },
-			{ x: new Date("1 Feb 2015"), y: 35960 },
-			{ x: new Date("1 Mar 2015"), y: 42160 },
-			{ x: new Date("1 Apr 2015"), y: 42240 },
-			{ x: new Date("1 May 2015"), y: 43200 },
-			{ x: new Date("1 Jun 2015"), y: 40600 },
-			{ x: new Date("1 Jul 2015"), y: 42560 },
-			{ x: new Date("1 Aug 2015"), y: 44280 },
-			{ x: new Date("1 Sep 2015"), y: 44800 },
-			{ x: new Date("1 Oct 2015"), y: 48720 },
-			{ x: new Date("1 Nov 2015"), y: 50840 },
-			{ x: new Date("1 Dec 2015"), y: 51600 }
-		]
-	}],
-	"Returning Visitors": [{
-		color: "#546BC1",
-		name: "Returning Visitors",
-		type: "column",
-		xValueFormatString: "MMM YYYY",
-		dataPoints: [
-			{ x: new Date("1 Jan 2015"), y: 22000 },
-			{ x: new Date("1 Feb 2015"), y: 26040 },
-			{ x: new Date("1 Mar 2015"), y: 25840 },
-			{ x: new Date("1 Apr 2015"), y: 23760 },
-			{ x: new Date("1 May 2015"), y: 28800 },
-			{ x: new Date("1 Jun 2015"), y: 29400 },
-			{ x: new Date("1 Jul 2015"), y: 33440 },
-			{ x: new Date("1 Aug 2015"), y: 37720 },
-			{ x: new Date("1 Sep 2015"), y: 35200 },
-			{ x: new Date("1 Oct 2015"), y: 35280 },
-			{ x: new Date("1 Nov 2015"), y: 31160 },
-			{ x: new Date("1 Dec 2015"), y: 34400 }
-		]
-	}]
-};
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-36251023-1']);
+_gaq.push(['_setDomainName', 'jqueryscript.net']);
+_gaq.push(['_trackPageview']);
 
-var newVSReturningVisitorsOptions = {
-	animationEnabled: true,
-	theme: "light2",
-	title: {
-		text: "New VS Returning Visitors"
-	},
-	subtitles: [{
-		text: "Click on Any Segment to Drilldown",
-		backgroundColor: "#2eacd1",
-		fontSize: 16,
-		fontColor: "white",
-		padding: 5
-	}],
-	legend: {
-		fontFamily: "calibri",
-		fontSize: 14,
-		itemTextFormatter: function (e) {
-			return e.dataPoint.name + ": " + Math.round(e.dataPoint.y / totalVisitors * 100) + "%";  
-		}
-	},
-	data: []
-};
+(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
 
-var visitorsDrilldownedChartOptions = {
-	animationEnabled: true,
-	theme: "light2",
-	axisX: {
-		labelFontColor: "#717171",
-		lineColor: "#a2a2a2",
-		tickColor: "#a2a2a2"
-	},
-	axisY: {
-		gridThickness: 0,
-		includeZero: false,
-		labelFontColor: "#717171",
-		lineColor: "#a2a2a2",
-		tickColor: "#a2a2a2",
-		lineThickness: 1
-	},
-	data: []
-};
-
-newVSReturningVisitorsOptions.data = visitorsData["New vs Returning Visitors"];
-$("#chartContainer").CanvasJSChart(newVSReturningVisitorsOptions);
-
-function visitorsChartDrilldownHandler(e) {
-	e.chart.options = visitorsDrilldownedChartOptions;
-	e.chart.options.data = visitorsData[e.dataPoint.name];
-	e.chart.options.title = { text: e.dataPoint.name }
-	e.chart.render();
-	$("#backButton").toggleClass("invisible");
-}
-
-$("#backButton").click(function() { 
-	$(this).toggleClass("invisible");
-	newVSReturningVisitorsOptions.data = visitorsData["New vs Returning Visitors"];
-	$("#chartContainer").CanvasJSChart(newVSReturningVisitorsOptions);
-});
-
-}
-</script> -->
+</script>
 @endsection
