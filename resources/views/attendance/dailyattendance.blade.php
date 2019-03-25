@@ -22,14 +22,12 @@ td{border: 1px solid #cccccc47;font-weight: 600;}
 @section('content')
 <div class="">
     <div class="row">
-        <select name="" class="form-control col-md-2" id="">
-            <option selected hidden>Search By Months</option>
-            <option>month 1</option>
-            <option>month 2</option>
-            <option>month 3</option>
-            <option>month 4</option>
-        </select>
-        <input class="form-control offset-md-6 col-md-4" id="search" type="text" placeholder="Search Here...">    
+            <form action="" method="get" class="col-md-4">
+                    {{ csrf_field() }}
+                    <input type="date" class="form-control col-md-6 float-left" name="date">
+                    <input type="submit" class="btn btn-sm btn-success offset-md-1" style="margin-top: 0.5%;" value="Submit">
+            </form>
+        <input class="form-control offset-md-4 col-md-4" id="search" type="text" placeholder="Search Here...">    
     </div>
     <div class="row">
         <table class="" style="width:100%">
@@ -37,7 +35,6 @@ td{border: 1px solid #cccccc47;font-weight: 600;}
                 <tr class"">
                     <th>Sr #.</th>
                     <th>Name</th>
-                    <th>Role</th>
                     <th>In</th>
                     <th>Incoming Status</th>
                     <th>Out</th>
@@ -45,42 +42,19 @@ td{border: 1px solid #cccccc47;font-weight: 600;}
                 </tr>
             </thead>
             <tbody id="example">
-                <tr>
-                    <td>1234</td>
-                    <td>hassan</td>
-                    <td>IT Consultant</td>
-                    <td><span class="in">9:00</span></td>
-                    <td><span class="incomingstatus">on time</span></td>
-                    <td><span class="out">5:00</span></td>
-                    <td><span class="outgoingstatus">on time</span></td>
-                </tr>
-                <tr>
-                    <td>1234</td>
-                    <td>anas</td>
-                    <td>IT Consultant</td>
-                    <td><span class="in">9:00</span></td>
-                    <td><span class="incomingstatus">on time</span></td>
-                    <td><span class="out">5:00</span></td>
-                    <td><span class="outgoingstatus">on time</span></td>
-                </tr>
-                <tr>
-                    <td>1234</td>
-                    <td>farhan fee chor</td>
-                    <td>IT Consultant</td>
-                    <td><span class="in">9:00</span></td>
-                    <td><span class="incomingstatus">on time</span></td>
-                    <td><span class="out">5:00</span></td>
-                    <td><span class="outgoingstatus">on time</span></td>
-                </tr>
-                <tr>
-                    <td>1234</td>
-                    <td>Tahir bhai</td>
-                    <td>IT Consultant</td>
-                    <td><span class="in">9:00</span></td>
-                    <td><span class="incomingstatus">on time</span></td>
-                    <td><span class="out">5:00</span></td>
-                    <td><span class="outgoingstatus">on time</span></td>
-                </tr>
+                @php
+                    $i=1;
+                @endphp
+                @foreach ($user_data as $key => $value)
+                    <tr>
+                        <td>{{$i++}}</td>
+                        <td>{{$key}}</td>
+                        <td><span class="in">{{ $value['Check-In'] ? date('H:i:s',strtotime($value['Check-In']->time)) : '-'}}</span></td>
+                        <td><span class="incomingstatus">{{$value['Check-In'] ? (date('H:i:s',strtotime($value['Check-In']->time)) > '09:30:00') ? 'Late' : 'OnTime' : 'Absent'}}</span></td>
+                        <td><span class="out">{{$value['Check-Out'] ? date('H:i:s',strtotime($value['Check-Out']->time)) : '-'}}</span></td>
+                        <td><span class="outgoingstatus">{{$value['Check-Out'] ? (date('H:i:s',strtotime($value['Check-Out']->time)) < '05:00:00') ? 'Before Time' : 'OnTime' : '-'}}</span></td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
