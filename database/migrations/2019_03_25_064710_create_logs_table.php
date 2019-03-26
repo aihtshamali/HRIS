@@ -19,8 +19,6 @@ class CreateLogsTable extends Migration
             $table->foreign('user_id')->references('attendance_id')->on('attendance_users')->onDelete('no action');
             $table->string('type');
             $table->timestamp('time')->nullable();
-            $table->string('name')->nullable();
-            $table->integer('machine_num')->nullable();
             $table->timestamps();
         });
     }
