@@ -16,7 +16,7 @@ class CreateAttendanceUsersTable extends Migration
         Schema::create('attendance_users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('attendance_id')->unsigned()->nullable();
+            $table->integer('attendance_id')->unsigned();
             $table->integer('machine_num')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
