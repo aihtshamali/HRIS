@@ -22,8 +22,12 @@ class ExecutiveController extends Controller
         }else{
             $date=$request->date;
         }
-        $user_data=$this->parseDataMachine1($date,'present');
-        $user_data->push($this->parseDataMachine2($date,'present'));
+        $user_data=array();
+         if($this->parseDataMachine1($date))
+             array_push($user_data,$this->parseDataMachine1($date));
+         if($this->parseDataMachine2($date))
+            array_push($user_data,$this->parseDataMachine2($date));
+
        return view('attendance.dailyattendance',compact('user_data'));
      }
      private function parseDataMachine1($date=null,$type=null){
@@ -121,8 +125,10 @@ class ExecutiveController extends Controller
          }else{
              $date=$request->date;
          }
-         $user_data=$this->parseDataMachine1($date,'present');
-         $user_data->push($this->parseDataMachine2($date,'present'));
+         if($this->parseDataMachine1($date,'present'))
+             array_push($user_data,$this->parseDataMachine1($date,'present'));
+         if($this->parseDataMachine2($date,'present'))
+            array_push($user_data,$this->parseDataMachine2($date,'present'));
          return view('attendance.present',compact('user_data'));
      }
      public function Absent(Request $request)
@@ -132,8 +138,11 @@ class ExecutiveController extends Controller
         }else{
             $date=$request->date;
         }
-        $user_data=$this->parseDataMachine1($date,'present');
-        $user_data->push($this->parseDataMachine2($date,'present'));
+        if($this->parseDataMachine1($date,'absent'))
+             array_push($user_data,$this->parseDataMachine1($date,'absent'));
+        if($this->parseDataMachine2($date,'absent'))
+             array_push($user_data,$this->parseDataMachine2($date,'absent'));
+
        return view('attendance.Absent',compact('user_data'));
      }
 }
