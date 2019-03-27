@@ -45,6 +45,7 @@ td{border: 1px solid #cccccc47;font-weight: 600;}
                 @php
                     $i=1;
                 @endphp
+                @if(isset($user_data[0]))
                 @foreach ($user_data[0] as $key => $value)
                     <tr>
                         <td>{{$i++}}</td>
@@ -55,6 +56,8 @@ td{border: 1px solid #cccccc47;font-weight: 600;}
                         <td><span class="outgoingstatus">{{$value['Check-Out'] ? (date('H:i:s',strtotime($value['Check-Out']->time)) < '05:00:00') ? 'Before Time' : 'OnTime' : '-'}}</span></td>
                     </tr>
                 @endforeach
+                @endif
+                @if(isset($user_data[1]))
                 @foreach ($user_data[1] as $key => $value)
                     <tr>
                         <td>{{$i++}}</td>
@@ -65,6 +68,7 @@ td{border: 1px solid #cccccc47;font-weight: 600;}
                         <td><span class="outgoingstatus">{{$value['Check-Out'] ? (date('H:i:s',strtotime($value['Check-Out']->time)) < '05:00:00') ? 'Before Time' : 'OnTime' : '-'}}</span></td>
                     </tr>
                 @endforeach
+                @endif
             </tbody>
         </table>
     </div>

@@ -125,6 +125,7 @@ class ExecutiveController extends Controller
          }else{
              $date=$request->date;
          }
+         $user_data=array();
          if($this->parseDataMachine1($date,'present'))
              array_push($user_data,$this->parseDataMachine1($date,'present'));
          if($this->parseDataMachine2($date,'present'))
@@ -138,6 +139,7 @@ class ExecutiveController extends Controller
         }else{
             $date=$request->date;
         }
+         $user_data=array();
         if($this->parseDataMachine1($date,'absent'))
              array_push($user_data,$this->parseDataMachine1($date,'absent'));
         if($this->parseDataMachine2($date,'absent'))
