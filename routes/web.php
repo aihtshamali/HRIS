@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/attendance','Controller@attendance')->name('attendance');
-Route::get('/dailyattendance','Controller@dailyattendance')->name('dailyattendance');
-Route::get('/present','Controller@present')->name('present');
-Route::get('/Absent','Controller@Absent')->name('Absent');
+Route::get('/attendance','ExecutiveController@attendance')->name('attendance');
+Route::get('/dailyattendance','ExecutiveController@dailyattendance')->name('dailyattendance');
+Route::get('/present','ExecutiveController@present')->name('present');
+Route::get('/Absent','ExecutiveController@Absent')->name('Absent');
