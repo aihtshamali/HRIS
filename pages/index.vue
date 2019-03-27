@@ -13,13 +13,10 @@
             <p class="card-text">{{summary.attendanceCount}}</p>
           </div>
           <div class="stats" slot="footer">
-            <a href>
+            <nuxt-link :to="summary.link">
               <i :data-feather="summary.footer_icon"></i>
-              Show All
-            </a>
-
-            <!-- <i :class="stats.footerIcon"></i> -->
-            <!-- {{stats.footerText}} -->
+               Show All
+            </nuxt-link>
           </div>
         </summary-card>
       </div>
@@ -127,28 +124,32 @@ export default {
           text: "Attendance",
           attendanceCount: "25",
           icon: "users",
-          footer_icon:'file-text'
+          footer_icon:'file-text',
+          link:'/DailyAttendance/FullAttendance'
         },
         {
           color: "green",
           text: "Present",
           attendanceCount: "25",
           icon: "user",
-          footer_icon:'file-text'
+          footer_icon:'file-text',
+          link:'/DailyAttendance/FullAttendance'
         },
         {
           color: "red",
           text: "Absent",
           attendanceCount: "25",
           icon: "thumbs-down",
-          footer_icon:'file-text'
+          footer_icon:'file-text',
+          link:'/DailyAttendance/FullAttendance'
         },
         {
           color: "blue",
           text: "Late Comers",
           attendanceCount: "25",
           icon: "clock",
-          footer_icon:'file-text'
+          footer_icon:'file-text',
+          link:'/DailyAttendance/FullAttendance'
         }
       ],
       statsCards: [
