@@ -18,8 +18,9 @@
 </template>
 <script>
 export default {
-  name: "stats-card"
+  name: "summary-card",
+  mounted: () => {
+     console.log('mounted');
+  }
 };
 </script>
-<style>
-</style>

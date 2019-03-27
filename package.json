@@ -15,7 +15,11 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.4.1",
+    "axios": "^0.18.0",
     "chartist": "^0.10.1",
+    "feather": "0.0.6",
+    "feather-icons": "^4.19.0",
     "google-maps": "^3.2.1",
     "nuxt": "^2.5.1",
     "vue-clickaway": "^2.1.0",
