@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLogsTable extends Migration
+class CreateAttendanceLogMachine2sTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('attendance_log_machine1', function (Blueprint $table) {
+        Schema::create('attendance_log_machine2', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('attendance_id')->on('attendance_users_machine1')->onDelete('cascade');
+            $table->foreign('user_id')->references('attendance_id')->on('attendance_users_machine2')->onDelete('cascade');
             $table->string('type');
             $table->timestamp('time')->nullable();
             $table->timestamps();
@@ -30,6 +30,6 @@ class CreateLogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attendance_log_machine1');
+        Schema::dropIfExists('attendance_log_machine2');
     }
 }
