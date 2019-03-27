@@ -14,11 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/feather/css/feather.css')}}"/>
-    <link rel="stylesheet" type="text/css" href="{{asset('_monitoring/css/css/jquery.steps.css')}}">
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/style.css')}}"/>
-    <link rel="stylesheet" href="{{ asset('_monitoring/css/css/jquery.mCustomScrollbar.css')}}"/>
-    <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/material-design/css/material-design-iconic-font.min.css')}}"/>
-    <!-- {{-- <link rel="shortcut icon" href="{{ asset('dgme.png' type="image/x-icon" /> --}} -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
 
 @yield('styleTags')
@@ -68,23 +64,10 @@
         </div>
     <!-- Pre-loader end -->
         <div id="pcoded" class="pcoded">
-            <div class="pcoded-overlay-box"></div>
+            <!-- <div class="pcoded-overlay-box"></div> -->
             <div class="pcoded-container navbar-wrapper">
                 <nav class="navbar header-navbar pcoded-header">
                     <div class="navbar-wrapper">
-
-                        <div class="navbar-logo">
-                            <a class="mobile-menu" id="mobile-collapse" href="#!">
-                                <i class="feather icon-menu"></i>
-                            </a>
-                        <a href="#!">
-                                {{-- <img class="img-fluid" src={{asset('_monitoring/css/images/logo.png')}} alt="Theme-Logo" /> --}}
-                           <span style="font-size:20px; text-align:center;">DG ( M & E)</span>
-                            </a>
-                            <a class="mobile-options">
-                                <i class="feather icon-more-horizontal"></i>
-                            </a>
-                        </div>
                         <div class="navbar-container container-fluid">
                             <ul class="nav-left">
                               <li onclick="goBack()" class="backforbtn" style=""><img src="{{asset('backbtn.png')}}" width="20px" title="back" alt=""></li>
@@ -238,34 +221,14 @@
 
 </body>
 {{-- required --}}
-<script data-cfasync="false" src="{{asset('_monitoring/js/email-decode.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/jquery/js/jquery.min.js')}}"></script>
-<script src="{{asset('_monitoring/js/jquery-ui/js/jquery-ui.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/popper.js/js/popper.min.js')}}"></script>
 <script src="{{asset('_monitoring/js/bootstrap/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('_monitoring/css/pages/dashboard/custom-dashboard.js')}}"></script>
-
-{{-- slim scroll --}}
-<script src="{{asset('_monitoring/js/jquery-slimscroll/js/jquery.slimscroll.js')}}"></script>
-<script src="{{asset('_monitoring/js/modernizr/js/modernizr.js')}}"></script>
-<script src="{{asset('_monitoring/js/modernizr/js/css-scrollbars.js')}}"></script>
-
-
-{{-- charts --}}
-<script src="{{asset('_monitoring/js/chart.js/js/Chart.js')}}"></script>
-<script src="{{asset('_monitoring/css/pages/widget/amchart/amcharts.js')}}"></script>
-<script src="{{asset('_monitoring/css/pages/widget/amchart/serial.js')}}"></script>
-{{-- scrollbar --}}
-<script src="{{asset('_monitoring/css/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/SmoothScroll.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/pcoded.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/vartical-layout.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/script.min.js')}}"></script>
 @yield("js_scripts")
-{{-- <script src="{{asset('_monitoring/css/js/SmoothScroll.js')}}"></script> --}}
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
 <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -279,41 +242,4 @@
             window.history.forward()
         }
 </script>
-<script>
-        function Export2Doc(element, filename = ''){
-            var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
-            var postHtml = "</body></html>";
-            var html = preHtml+document.getElementById(element).innerHTML+postHtml;
-
-            var blob = new Blob(['\ufeff', html], {
-                type: 'application/msword'
-            });
-
-            // Specify link url
-            var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
-
-            // Specify file name
-            filename = filename?filename+'.doc':'document.doc';
-
-            // Create download link element
-            var downloadLink = document.createElement("a");
-
-            document.body.appendChild(downloadLink);
-
-            if(navigator.msSaveOrOpenBlob ){
-                navigator.msSaveOrOpenBlob(blob, filename);
-            }else{
-                // Create a link to the file
-                downloadLink.href = url;
-
-                // Setting the file name
-                downloadLink.download = filename;
-
-                //triggering the function
-                downloadLink.click();
-            }
-
-            document.body.removeChild(downloadLink);
-        }
-        </script>
 </html>

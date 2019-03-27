@@ -46,7 +46,7 @@
 	}
 	.diagram{margin:auto;color:#fff;font-size:14px;	}
 	.donutchart tr td{line-height: 30px !important;}
-	.brown{background: #a52a2a  !important;}
+	.brown{background: #a52a2a}
 </style>
 @endsection
 @section('content')
