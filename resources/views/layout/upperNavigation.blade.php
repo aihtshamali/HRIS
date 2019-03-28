@@ -15,7 +15,10 @@
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{ asset('_monitoring/css/icon/feather/css/feather.css')}}"/>
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/style.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('_monitoring/css/css/buttons.dataTables.min.css')}}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/css/dataTables.bootstrap4.min.css')}}" />
+
 
 @yield('styleTags')
 <style media="screen">
@@ -228,6 +231,10 @@
 <script src="{{asset('_monitoring/css/js/pcoded.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/vartical-layout.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/js/script.min.js')}}"></script>
+<script src="{{asset('_monitoring/css/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('_monitoring/css/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('_monitoring/css/pages/data-table/js/data-table-custom.js')}}"></script>
+
 @yield("js_scripts")
 <script>
         window.dataLayer = window.dataLayer || [];

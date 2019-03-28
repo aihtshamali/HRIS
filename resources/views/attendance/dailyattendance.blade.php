@@ -17,6 +17,8 @@ thead:nth-child(1){background: #404e67 !important;color: #fff !important;}
 th{border:1px solid #fff;}
 td{border: 1px solid #cccccc47;font-weight: 600;}
 td{border: 1px solid #cccccc47;font-weight: 600;}
+#simpletable_wrapper{width:100% !important;}
+#simpletable_filter{display:none;}
 </style>
 @endsection
 @section('content')
@@ -30,7 +32,7 @@ td{border: 1px solid #cccccc47;font-weight: 600;}
         <input class="form-control offset-md-4 col-md-4" id="search" type="text" placeholder="Search Here...">    
     </div>
     <div class="row">
-        <table class="" style="width:100%">
+        <table id="simpletable" class="table table-striped table-bordered nowrap" style="width:100%">
             <thead>
                 <tr class"">
                     <th>Sr #.</th>
