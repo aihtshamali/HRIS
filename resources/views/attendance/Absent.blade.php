@@ -33,20 +33,21 @@ td{border: 1px solid #cccccc47;font-weight: 600;}
         <table id="myTable" class="table table-striped table-bordered table-sm" style="width:100%">
             <thead>
                 <tr class"">
-                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">Sr #.</th>
-                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">Name</th>
-                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">In</th>
-                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">Incoming Status</th>
-                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(5)')" style="cursor:pointer">Out</th>
-                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(6)')" style="cursor:pointer">Outgoing Status</th>
+                    <th>Sr #.</th>
+                    <th>Name</th>
+                    <th>In</th>
+                    <th>Incoming Status</th>
+                    <th>Out</th>
+                    <th>Outgoing Status</th>
                 </tr>
             </thead>
             <tbody id="example">
                 @php
                     $i=1;
                 @endphp
-                @foreach ($user_data as $key => $value)
-                    <tr class="item">
+                @if(isset($user_data[0]))
+                @foreach ($user_data[0] as $key => $value)
+                    <tr>
                         <td>{{$i++}}</td>
                         <td>{{$key}}</td>
                         <td><span class="in">{{ $value['Check-In'] ? date('H:i:s',strtotime($value['Check-In']->time)) : '-'}}</span></td>
@@ -55,6 +56,19 @@ td{border: 1px solid #cccccc47;font-weight: 600;}
                         <td><span class="outgoingstatus">{{$value['Check-Out'] ? (date('H:i:s',strtotime($value['Check-Out']->time)) < '05:00:00') ? 'Before Time' : 'OnTime' : '-'}}</span></td>
                     </tr>
                 @endforeach
+                @endif
+                @if(isset($user_data[1]))
+                @foreach ($user_data[1] as $key => $value)
+                    <tr>
+                        <td>{{$i++}}</td>
+                        <td>{{$key}}</td>
+                        <td><span class="in">{{ $value['Check-In'] ? date('H:i:s',strtotime($value['Check-In']->time)) : '-'}}</span></td>
+                        <td><span class="incomingstatus">{{$value['Check-In'] ? (date('H:i:s',strtotime($value['Check-In']->time)) > '09:15:00') ? 'Late' : 'OnTime' : 'Absent'}}</span></td>
+                        <td><span class="out">{{$value['Check-Out'] ? date('H:i:s',strtotime($value['Check-Out']->time)) : '-'}}</span></td>
+                        <td><span class="outgoingstatus">{{$value['Check-Out'] ? (date('H:i:s',strtotime($value['Check-Out']->time)) < '05:00:00') ? 'Before Time' : 'OnTime' : '-'}}</span></td>
+                    </tr>
+                @endforeach
+                @endif
             </tbody>
         </table>
     </div>

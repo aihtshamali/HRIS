@@ -45,7 +45,8 @@ td{border: 1px solid #cccccc47;font-weight: 600;}
                 @php
                     $i=1;
                 @endphp
-                @foreach ($user_data as $key => $value)
+                @if(isset($user_data[0]))
+                @foreach ($user_data[0] as $key => $value)
                     <tr>
                         <td>{{$i++}}</td>
                         <td>{{$key}}</td>
@@ -55,6 +56,19 @@ td{border: 1px solid #cccccc47;font-weight: 600;}
                         <td><span class="outgoingstatus">{{$value['Check-Out'] ? (date('H:i:s',strtotime($value['Check-Out']->time)) < '05:00:00') ? 'Before Time' : 'OnTime' : '-'}}</span></td>
                     </tr>
                 @endforeach
+                @endif
+                @if(isset($user_data[1]))
+                @foreach ($user_data[1] as $key => $value)
+                    <tr>
+                        <td>{{$i++}}</td>
+                        <td>{{$key}}</td>
+                        <td><span class="in">{{ $value['Check-In'] ? date('H:i:s',strtotime($value['Check-In']->time)) : '-'}}</span></td>
+                        <td><span class="incomingstatus">{{$value['Check-In'] ? (date('H:i:s',strtotime($value['Check-In']->time)) > '09:30:00') ? 'Late' : 'OnTime' : 'Absent'}}</span></td>
+                        <td><span class="out">{{$value['Check-Out'] ? date('H:i:s',strtotime($value['Check-Out']->time)) : '-'}}</span></td>
+                        <td><span class="outgoingstatus">{{$value['Check-Out'] ? (date('H:i:s',strtotime($value['Check-Out']->time)) < '05:00:00') ? 'Before Time' : 'OnTime' : '-'}}</span></td>
+                    </tr>
+                @endforeach
+                @endif
             </tbody>
         </table>
     </div>
