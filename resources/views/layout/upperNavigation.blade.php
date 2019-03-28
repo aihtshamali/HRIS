@@ -90,58 +90,7 @@
                                     </a>
                                 </li>
                             </ul>
-                            <ul class="nav-right">
-                              <li class="user-profile header-notification float-right">
-                              <div class="dropdown-primary dropdown">
-                                  <div class="dropdown-toggle" data-toggle="dropdown">
-                                      <img src={{asset('userImage.jpg')}} width="20px" class="img-radius" alt="User-Profile-Image">
-                                      <span>
-                                          <!-- @auth
-                                          {{Auth::user()->first_name}} {{Auth::user()->last_name}}
-                                          @endauth -->
-                                          First Name
-                                      </span>
-                                      <i class="feather icon-chevron-down"></i>
-                                  </div>
-                                  <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                      <li>
-                                          <a href="#!">
-                                              <i class="feather icon-settings"></i> Settings
-                                          </a>
-                                      </li>
-                                      <li>
-                                          <a href="user-profile.html">
-                                              <i class="feather icon-user"></i> Profile
-                                          </a>
-                                      </li>
-                                      <li>
-                                          <a href="email-inbox.html">
-                                              <i class="feather icon-mail"></i> My Messages
-                                          </a>
-                                      </li>
-                                      <li>
-                                          <a href="auth-lock-screen.html">
-                                              <i class="feather icon-lock"></i> Lock Screen
-                                          </a>
-                                      </li>
-                                      <li>
-                                          {{-- <a href="auth-normal-sign-in.html"> --}}
-                                          <a href="#!"
-                                              onclick="event.preventDefault();
-                                               document.getElementById('logout-form').submit();" ><i class="feather icon-log-out"></i> Logout
-                                          </a>
-                                          <form id="logout-form" action="#!" method="POST" style="display: none;">
-                                              {{ csrf_field() }}
-                                          </form>
-
-                                      </li>
-                                  </ul>
-
-                                      </div>
-                                  </li>
-                            </div>
-                        </li>
-                        </ul>
+                            
                     </div></div>
                 </nav>
                 <!-- Sidebar chat start -->
