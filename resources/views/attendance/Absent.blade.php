@@ -30,15 +30,15 @@ td{border: 1px solid #cccccc47;font-weight: 600;}
     <input class="form-control offset-md-4 col-md-4" id="search" type="text" placeholder="Search Here...">    
 </div>
     <div class="row">
-        <table class="" style="width:100%">
+        <table id="myTable" class="table table-striped table-bordered table-sm" style="width:100%">
             <thead>
                 <tr class"">
-                    <th>Sr #.</th>
-                    <th>Name</th>
-                    <th>In</th>
-                    <th>Incoming Status</th>
-                    <th>Out</th>
-                    <th>Outgoing Status</th>
+                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">Sr #.</th>
+                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">Name</th>
+                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">In</th>
+                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">Incoming Status</th>
+                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(5)')" style="cursor:pointer">Out</th>
+                    <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(6)')" style="cursor:pointer">Outgoing Status</th>
                 </tr>
             </thead>
             <tbody id="example">
@@ -46,7 +46,7 @@ td{border: 1px solid #cccccc47;font-weight: 600;}
                     $i=1;
                 @endphp
                 @foreach ($user_data as $key => $value)
-                    <tr>
+                    <tr class="item">
                         <td>{{$i++}}</td>
                         <td>{{$key}}</td>
                         <td><span class="in">{{ $value['Check-In'] ? date('H:i:s',strtotime($value['Check-In']->time)) : '-'}}</span></td>

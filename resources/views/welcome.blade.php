@@ -54,7 +54,7 @@
   <div class="col-sm-3">
     <div class="card">
       <div class="card-body">
-          <div class="col-md-3 absiconcard orrange">
+          <div class="col-md-3 absiconcard orrange hidden-xs hidden-sm">
             <i class="feather icon-users"></i>
           </div>
         <h5 class="card-title col-sm-7 offset-md-5 float-right">Attendance</h5>
@@ -67,7 +67,7 @@
   <div class="col-sm-3">
     <div class="card">
       <div class="card-body">
-          <div class="col-md-3 absiconcard green">
+          <div class="col-md-3 absiconcard green hidden-xs hidden-sm">
             <i class="feather icon-user"></i>
           </div>
         <h5 class="card-title col-sm-7 offset-md-5 float-right">Present</h5>
@@ -80,7 +80,7 @@
   <div class="col-sm-3">
     <div class="card">
       <div class="card-body">
-          <div class="col-md-3 absiconcard red">
+          <div class="col-md-3 absiconcard red hidden-xs hidden-sm">
             <i class="feather icon-thumbs-down"></i>
           </div>
         <h5 class="card-title col-sm-7 offset-md-5 float-right">Absent</h5>
@@ -93,7 +93,7 @@
   <div class="col-sm-3">
     <div class="card">
       <div class="card-body">
-          <div class="col-md-3 absiconcard sky">
+          <div class="col-md-3 absiconcard sky hidden-xs hidden-sm">
             <i class="feather icon-clock"></i>
           </div>
         <h5 class="card-title col-sm-7 offset-md-5 float-right">Late Comers</h5>
