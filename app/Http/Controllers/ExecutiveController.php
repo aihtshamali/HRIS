@@ -40,7 +40,7 @@ class ExecutiveController extends Controller
         foreach($officers as $officer)
         {
             $logs1=AttendanceLogMachine1::select('user_id','type','time',\DB::raw("convert(varchar, time, 23) as mydate"),'created_at')
-            ->orderBy('user_id','ASC')
+            ->orderBy('time','DESC')
             ->get();
             $CheckIn=$logs1
              ->where('mydate',$date)->where('user_id',$officer->attendance_id)->where('type','Check-In')->last();
@@ -84,7 +84,7 @@ class ExecutiveController extends Controller
         foreach($officers as $officer)
         {
             $logs2=AttendanceLogMachine2::select('user_id','type','time',\DB::raw("convert(varchar, time, 23) as mydate"),'created_at')
-            ->orderBy('user_id','ASC')
+            ->orderBy('time','DESC')
             ->get();
             $CheckIn=$logs2
              ->where('mydate',$date)->where('user_id',$officer->attendance_id)->where('type','Check-In')->last();
