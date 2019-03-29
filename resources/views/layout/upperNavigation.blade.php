@@ -125,7 +125,7 @@
             width: 20%;
             position: absolute;
             top: 0%;
-            right: 0%;
+            right: 3%;
         }
 
         .main-body .page-wrapper {
