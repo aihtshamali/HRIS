@@ -4,19 +4,7 @@
 @endsection
 @section('styleTags')
 <style>
-.navbar-logo,.pcoded-navbar{display:none !important;}
-.pcoded[theme-layout="vertical"][vertical-placement="left"][vertical-nav-type="expanded"][vertical-effect="shrink"] .pcoded-content{margin-left:0px !important;}
-td, th{text-align:center;}
-button, input, optgroup, select, textarea{border-radius:6px !important}
-table{margin-top:3% !important;}
-th{padding: 8px 0px;}
-tr{border-bottom:1px solid #ccc;-webkit-transition: all 600ms ease;transition: all 600ms ease;}
-tbody tr:nth-child(even){color:#555;background-color:#eeecec;}
-tbody tr:hover{color:#777;background-color:#fff;-webkit-transition: all 600ms ease;transition: all 600ms ease;}
-thead:nth-child(1){background: #404e67 !important;color: #fff !important;}
-th{border:1px solid #fff;}
-td{border: 1px solid #cccccc47;font-weight: 600;}
-td{border: 1px solid #cccccc47;font-weight: 600;}
+
 </style>
 @endsection
 @section('content')
