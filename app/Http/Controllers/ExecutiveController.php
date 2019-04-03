@@ -166,6 +166,14 @@ class ExecutiveController extends Controller
             $user_data=array_merge($user_data[0],$this->parseDataMachine2($date, 'absent'));
         return view('attendance.Absent', compact('user_data'));
     }
+    public function dispatches()
+    {
+        return view('dispatch.dispatch');        
+    }
+    public function creates()
+    {
+        return view( 'dispatch.create');        
+    }
     public function test()
     {
         return response()->json(["success" => "oh yea"]);

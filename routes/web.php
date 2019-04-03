@@ -18,3 +18,5 @@ Route::get('/attendance','ExecutiveController@attendance')->name('attendance');
 Route::get('/dailyattendance','ExecutiveController@dailyattendance')->name('dailyattendance');
 Route::get('/present','ExecutiveController@present')->name('present');
 Route::get('/Absent','ExecutiveController@Absent')->name('Absent');
+Route::get( '/dispatch', 'ExecutiveController@dispatches')->name( 'dispatch');
+Route::get( '/create', 'ExecutiveController@creates')->name( 'create');
