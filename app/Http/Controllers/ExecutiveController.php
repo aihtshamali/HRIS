@@ -18,7 +18,7 @@ class ExecutiveController extends Controller
     private $time_in, $time_out;
     public function __construct()
     {
-        $this->time_in = '09:00:00';
+        $this->time_in = '09:15:00';
         $this->time_out = '17:00:00';
     }
     // attendance
@@ -45,14 +45,14 @@ class ExecutiveController extends Controller
 
     private function CheckStatus($attendance_data, $type)
     {
-        if (!$attendance_data || $type== 'A bsent') {
+        if (!$attendance_data || $type== 'Absent') {
             $attendance_data=new Collection();
             $attendance_data->status = "Absent";
-        } else if ($type== 'C heck-In' && strtotime(date('H:i:s', strtotime($attendance_data->time))) > strtotime($this->time_in)) {
+        } else if ($type== 'Check-In' && strtotime(date('H:i:s', strtotime($attendance_data->time))) > strtotime($this->time_in)) {
             $attendance_data->status = "Late";
         } else if ($type == 'Check-In' && strtotime(date('H:i:s', strtotime($attendance_data->time))) <= strtotime($this->time_in)) {
-            $attendance_data->status = "Ontime";
-        } else if ($type== 'C heck-Out' && strtotime(date('H:i:s', strtotime($attendance_data->time))) > strtotime($this->time_out)) {
+            $attendance_data->status = "On-Time";
+        } else if ($type== 'Check-Out' && strtotime(date('H:i:s', strtotime($attendance_data->time))) > strtotime($this->time_out)) {
             $attendance_data->status = "On-Time";
         } else if ($type == 'Check-Out' && strtotime(date('H:i:s', strtotime($attendance_data->time))) < strtotime($this->time_out)) {
             $attendance_data->status = "Before Time";
@@ -76,23 +76,23 @@ class ExecutiveController extends Controller
                 ->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-Out')->last();
             if ($type == "absent") {
                 if (!$CheckIn) {
-                    $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'A bsent');
-                    $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'A bsent');
+                    $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'Absent');
+                    $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Absent');
                 }
             } else if ($type == "late comers") {
                 if ($CheckIn && strtotime(date('H:i:s', strtotime($CheckIn->time)) > strtotime($this->time_in))) {
                     $CheckIn->status = 'Late';
-                    $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'C heck-In');
-                    $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'C heck-Out');
+                    $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'Check-In');
+                    $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Check-Out');
                 }
             } else if ($type == "present") {
                 if ($CheckIn != null) {
-                    $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'C heck-In');
-                    $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'C heck-Out');
+                    $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'Check-In');
+                    $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Check-Out');
                 }
             } elseif ($type == null) {
-                $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'C heck-In');
-                $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'C heck-Out');
+                $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'Check-In');
+                $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Check-Out');
             }
         }
         return $attendance_data;
@@ -114,23 +114,23 @@ class ExecutiveController extends Controller
                 ->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-Out')->last();
             if ($type == "absent") {
                 if (!$CheckIn) {
-                    $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'A bsent');
-                    $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'A bsent');
+                    $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'Absent');
+                    $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Absent');
                 }
             } else if ($type == "late comers") {
                 if ($CheckIn && strtotime(date('H:i:s', strtotime($CheckIn->time)) > strtotime($this->time_in))) {
                     $CheckIn->status = 'Late';
-                    $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'C heck-In');
-                    $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'C heck-Out');
+                    $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'Check-In');
+                    $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Check-Out');
                 }
             } else if ($type == "present") {
                 if ($CheckIn != null) {
-                    $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'C heck-In');
-                    $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'C heck-Out');
+                    $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'Check-In');
+                    $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Check-Out');
                 }
             } elseif ($type == null) {
-                $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'C heck-In');
-                $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'C heck-Out');
+                $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'Check-In');
+                $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Check-Out');
             }
         }
         return $attendance_data;
