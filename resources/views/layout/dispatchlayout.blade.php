@@ -42,7 +42,8 @@
         }
 
         .pcoded .pcoded-navbar[navbar-theme="theme1"] {
-            background-image: linear-gradient(to bottom, #60803f, #607f41db, #7ea482) !important;
+            /* background-image: linear-gradient(to bottom, #60803f, #607f41db, #7ea482) !important; */
+            background-color: #2e353c;
         }
 
         .pcoded .pcoded-header .navbar-logo[logo-theme="theme1"] {
