@@ -58,7 +58,7 @@
             <i class="feather icon-users"></i>
           </div>
         <h5 class="card-title col-sm-7 offset-md-5 float-right">Attendance</h5>
-        <h2 class="card-text">25</h2>
+        <h2 class="card-text"><b>{{$total_count}}</b></h2>
         <hr/>
             <a href="{{route('dailyattendance')}}"><h6><i class="feather icon-file-text"></i> Show All</h6></a>
       </div>
@@ -71,7 +71,7 @@
             <i class="feather icon-user"></i>
           </div>
         <h5 class="card-title col-sm-7 offset-md-5 float-right">Present</h5>
-        <h2 class="card-text">20</h2>
+        <h2 class="card-text"><b>{{$total_present_count}}</b></h2>
         <hr/>
             <a href="{{route('present')}}"><h6><i class="feather icon-file-text"></i> Show All</h6></a>
       </div>
@@ -84,7 +84,7 @@
             <i class="feather icon-thumbs-down"></i>
           </div>
         <h5 class="card-title col-sm-7 offset-md-5 float-right">Absent</h5>
-        <h2 class="card-text">20</h2>
+        <h2 class="card-text"><b>{{$total_absent_count}}</b></h2>
         <hr/>
             <a href="{{route('Absent')}}"><h6><i class="feather icon-file-text"></i> Show All</h6></a>
       </div>
@@ -97,7 +97,7 @@
             <i class="feather icon-clock"></i>
           </div>
         <h5 class="card-title col-sm-7 offset-md-5 float-right">Late Comers</h5>
-        <h2 class="card-text">20</h2>
+        <h2 class="card-text"><b>{{$total_late_count}}</b></h2>
         <hr/>
             <a href="#!"><h6><i class="feather icon-file-text"></i> Show All</h6></a>
       </div>
