@@ -38,7 +38,7 @@ class ExecutiveController extends Controller
             $user_data[0]=$this->parseDataMachine1($date);
         if ($this->parseDataMachine2($date))
             $user_data=array_merge($user_data[0],$this->parseDataMachine2($date));
-        // return response()->json($user_data);
+
         return view('attendance.dailyattendance', compact('user_data'));
     }
     // -----------PRIVATE-------------
@@ -80,7 +80,7 @@ class ExecutiveController extends Controller
                     $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Absent');
                 }
             } else if ($type == "late comers") {
-                if ($CheckIn && strtotime(date('H:i:s', strtotime($CheckIn->time)) > strtotime($this->time_in))) {
+                if ($CheckIn && strtotime(date('H:i:s', strtotime($CheckIn->time))) > strtotime($this->time_in)) {
                     $CheckIn->status = 'Late';
                     $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'Check-In');
                     $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Check-Out');
@@ -118,7 +118,7 @@ class ExecutiveController extends Controller
                     $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Absent');
                 }
             } else if ($type == "late comers") {
-                if ($CheckIn && strtotime(date('H:i:s', strtotime($CheckIn->time)) > strtotime($this->time_in))) {
+                if ($CheckIn && strtotime(date('H:i:s', strtotime($CheckIn->time))) > strtotime($this->time_in)) {
                     $CheckIn->status = 'Late';
                     $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'Check-In');
                     $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Check-Out');
@@ -150,6 +150,8 @@ class ExecutiveController extends Controller
             $user_data[0]=$this->parseDataMachine1($date, 'present');
         if ($this->parseDataMachine2($date, 'present'))
             $user_data=array_merge($user_data[0],$this->parseDataMachine2($date, 'present'));
+        $total_count= count($user_data);
+        // dd($total_count);
         return view('attendance.present', compact('user_data'));
     }
     public function Absent(Request $request)
@@ -168,11 +170,15 @@ class ExecutiveController extends Controller
     }
     public function dispatches()
     {
-        return view('dispatch.dispatch');        
+        return view('dispatch.dispatch');
     }
     public function creates()
     {
-        return view( 'dispatch.create');        
+        return view( 'dispatch.create');
+    }
+    public function AttendanceGraph()
+    {
+        return view( 'attendance.AttendanceGraph');
     }
     public function AttendanceGraph()
     {
@@ -181,5 +187,47 @@ class ExecutiveController extends Controller
     public function test()
     {
         return response()->json(["success" => "oh yea"]);
+    }
+    public function attendance_welcome()
+    {
+
+
+        if (!isset($request->date) || $request->date == null) {
+            $date = date('Y-m-d');
+        } else {
+            $date = $request->date;
+        }
+        //total
+        $daily_total = array();
+        if ($this->parseDataMachine1($date))
+            $user_data[0]=$this->parseDataMachine1($date);
+        if ($this->parseDataMachine2($date))
+            $user_data=array_merge($user_data[0],$this->parseDataMachine2($date));
+        $total_count=count($user_data);
+            // dd(count($user_data));
+        //present persons
+        $total_present = array();
+        if ($this->parseDataMachine1($date, 'present'))
+            $total_present[0]=$this->parseDataMachine1($date, 'present');
+        if ($this->parseDataMachine2($date, 'present'))
+            $total_present=array_merge($total_present[0],$this->parseDataMachine2($date, 'present'));
+        $total_present_count= count($total_present);
+
+        //absent count
+        $total_absent = array();
+        if ($this->parseDataMachine1($date, 'absent'))
+            $total_absent[0]=$this->parseDataMachine1($date, 'absent');
+        if ($this->parseDataMachine2($date, 'absent'))
+            $total_absent=array_merge($total_absent[0],$this->parseDataMachine2($date, 'absent'));
+        $total_absent_count= count($total_absent);
+
+        //late comers
+        $total_latecomers = array();
+        if ($this->parseDataMachine1($date, 'late comers'))
+            $total_latecomers[0]=$this->parseDataMachine1($date, 'late comers');
+        if ($this->parseDataMachine2($date, 'late comers'))
+            $total_latecomers=array_merge($total_latecomers[0],$this->parseDataMachine2($date, 'late comers'));
+        $total_late_count= count($total_latecomers);
+        return view('welcome', compact('total_count','total_present_count','total_absent_count','total_late_count'));
     }
 }
