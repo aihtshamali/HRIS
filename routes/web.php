@@ -21,8 +21,5 @@ Route::get('/present','ExecutiveController@present')->name('present');
 Route::get('/Absent','ExecutiveController@Absent')->name('Absent');
 Route::get( '/dispatch', 'ExecutiveController@dispatches')->name( 'dispatch');
 Route::get( '/create', 'ExecutiveController@creates')->name( 'create');
-<<<<<<< HEAD
+Route::get( '/lateComer', 'ExecutiveController@lateComer')->name( 'lateComer');
 Route::get( '/AttendanceGraph', 'ExecutiveController@AttendanceGraph')->name( 'AttendanceGraph');
-=======
-Route::get( '/AttendanceGraph', 'ExecutiveController@AttendanceGraph')->name( 'AttendanceGraph');
->>>>>>> 87374859f1500d73364d50bfdb27d5818980be19

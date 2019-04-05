@@ -168,6 +168,10 @@ class ExecutiveController extends Controller
             $user_data=array_merge($user_data[0],$this->parseDataMachine2($date, 'absent'));
         return view('attendance.Absent', compact('user_data'));
     }
+    public function lateComer()
+    {
+        return view( 'attendance.lateComer');
+    }
     public function dispatches()
     {
         return view('dispatch.dispatch');
@@ -175,10 +179,6 @@ class ExecutiveController extends Controller
     public function creates()
     {
         return view( 'dispatch.create');
-    }
-    public function AttendanceGraph()
-    {
-        return view( 'attendance.AttendanceGraph');
     }
     public function AttendanceGraph()
     {
