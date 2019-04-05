@@ -20,3 +20,4 @@ Route::get('/present','ExecutiveController@present')->name('present');
 Route::get('/Absent','ExecutiveController@Absent')->name('Absent');
 Route::get( '/dispatch', 'ExecutiveController@dispatches')->name( 'dispatch');
 Route::get( '/create', 'ExecutiveController@creates')->name( 'create');
+Route::get( '/AttendanceGraph', 'ExecutiveController@AttendanceGraph')->name( 'AttendanceGraph');

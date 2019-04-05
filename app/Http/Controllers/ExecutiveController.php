@@ -174,6 +174,10 @@ class ExecutiveController extends Controller
     {
         return view( 'dispatch.create');        
     }
+    public function AttendanceGraph()
+    {
+        return view( 'attendance.AttendanceGraph');        
+    }
     public function test()
     {
         return response()->json(["success" => "oh yea"]);

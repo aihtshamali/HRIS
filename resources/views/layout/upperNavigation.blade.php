@@ -359,7 +359,7 @@
                 </div>
             </div>
 
-            @include('inc.managerSidebar')
+            @include('inc.Sidebar')
 
         </div>
     </div>
