@@ -150,6 +150,8 @@ class ExecutiveController extends Controller
             $user_data[0]=$this->parseDataMachine1($date, 'present');
         if ($this->parseDataMachine2($date, 'present'))
             $user_data=array_merge($user_data[0],$this->parseDataMachine2($date, 'present'));
+        $total_count= count($user_data);
+        // dd($total_count);
         return view('attendance.present', compact('user_data'));
     }
     public function Absent(Request $request)
@@ -168,11 +170,15 @@ class ExecutiveController extends Controller
     }
     public function dispatches()
     {
-        return view('dispatch.dispatch');        
+        return view('dispatch.dispatch');
     }
     public function creates()
     {
-        return view( 'dispatch.create');        
+        return view( 'dispatch.create');
+    }
+    public function AttendanceGraph()
+    {
+        return view( 'attendance.AttendanceGraph');
     }
     public function test()
     {

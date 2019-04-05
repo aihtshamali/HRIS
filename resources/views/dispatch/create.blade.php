@@ -10,7 +10,11 @@ DGME Dispatch | Creat
 </style>
 @endsection
 @section('content')
+<div class="col-md-12">
+    <center><img src="{{ asset('dgme.png')}}" width="100px" alt="" /></center>
 
+</div>
+<!-- <img class="w_46p" id="logo" src="{{ asset('dgme.png')}}" alt="DGME Logo" /> -->
 @endsection
 @section("js_scripts")
 <script>
