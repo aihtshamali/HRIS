@@ -85,7 +85,7 @@ DGME | Absent
     <div class="row">
         <table id="simpletable" class="table table-striped table-bordered nowrap" style="width:100%">
             <thead>
-                <tr class"">
+                <tr class="">
                     <th>Sr #.</th>
                     <th>Name</th>
                     <th>In</th>
