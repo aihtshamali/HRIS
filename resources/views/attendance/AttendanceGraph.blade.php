@@ -42,7 +42,7 @@ DGME | Daily Attendance
         "Time": 408
     }, {
         "date": "2012-01-02",
-        "Time": 371,
+        // "Time": 371,
         // "townName": "Washington",
         "townSize": 7,
         "latitude": 38.89,
@@ -159,10 +159,10 @@ DGME | Daily Attendance
     distanceAxis.renderer.grid.template.disabled = true;
 
     var durationAxis = chart.yAxes.push(new am4charts.DurationAxis());
-    durationAxis.title.text = "Time";
     durationAxis.baseUnit = "minute";
+    // durationAxis.title.text = "Time";
     durationAxis.renderer.grid.template.disabled = true;
-    durationAxis.renderer.opposite = true;
+    durationAxis.renderer.opposite = false;
 
     // durationAxis.durationFormatter.durationFormat = "hh'h' mm'min'";
 
@@ -176,7 +176,7 @@ DGME | Daily Attendance
     distanceSeries.dataFields.dateX = "date";
     distanceSeries.yAxis = distanceAxis;
     distanceSeries.tooltipText = "{valueY} miles";
-    distanceSeries.name = "Time";
+    distanceSeries.name = "Date";
     distanceSeries.columns.template.fillOpacity = 0.7;
     distanceSeries.columns.template.propertyFields.strokeDasharray = "dashLength";
     distanceSeries.columns.template.propertyFields.fillOpacity = "alpha";
@@ -188,7 +188,7 @@ DGME | Daily Attendance
     durationSeries.dataFields.valueY = "Time";
     durationSeries.dataFields.dateX = "date";
     durationSeries.yAxis = durationAxis;
-    durationSeries.name = "Time";
+    durationSeries.name = "Incoming Time";
     durationSeries.strokeWidth = 2;
     durationSeries.propertyFields.strokeDasharray = "dashLength";
     durationSeries.tooltipText = "{valueY.formatDuration()}";
@@ -209,7 +209,7 @@ DGME | Daily Attendance
     latitudeSeries.dataFields.valueY = "latitude";
     latitudeSeries.dataFields.dateX = "date";
     latitudeSeries.yAxis = latitudeAxis;
-    latitudeSeries.name = "Time";
+    latitudeSeries.name = "Outgoing Time";
     latitudeSeries.strokeWidth = 2;
     latitudeSeries.propertyFields.strokeDasharray = "dashLength";
     latitudeSeries.tooltipText = "Latitude: {valueY} ({townName})";
