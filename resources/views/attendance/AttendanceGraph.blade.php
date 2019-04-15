@@ -35,7 +35,7 @@ DGME | Daily Attendance
     chart.data = [{
         "date": "2012-01-01",
         "Time": 227,
-        // "townName": "New York",
+        "townName": "New York",
         // "townName2": "New York",
         // "townSize": 12,
         "latitude": 40.71,

@@ -8,6 +8,7 @@ use App\AttendanceUserMachine2;
 use App\AttendanceLogMachine1;
 use App\AttendanceLogMachine2;
 use Illuminate\Database\Eloquent\Collection;
+use JavaScript;
 use DB;
 class ExecutiveController extends Controller
 {
@@ -180,8 +181,15 @@ class ExecutiveController extends Controller
     {
         return view( 'dispatch.create');
     }
-    public function AttendanceGraph()
+    public function AttendanceGraph($name)
     {
+        
+        $user=AttendanceUserMachine1::where('name',$name)->first();
+        $user = $user ? $user : AttendanceUserMachine2::where('name', $name)->first();
+
+        JavaScript::put([
+            'user' => $user,
+        ]);
         return view( 'attendance.AttendanceGraph');        
     }
     public function test()

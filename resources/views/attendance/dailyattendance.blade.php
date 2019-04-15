@@ -36,7 +36,7 @@ DGME | Daily Attendance
                 @foreach ($user_data as $key => $value)
                 <tr>
                     <td>{{$i++}}</td>
-                    <td><a href="{{route('AttendanceGraph')}}">{{$key}}</a></td>
+                    <td><a href="{{route('AttendanceGraph',$key)}}">{{$key}}</a></td>
                     <td><span class="in">{{ isset($value['Check-In']->time) ? date('h:i:s A',strtotime($value['Check-In']->time)) : '-'}}</span></td>
                     <td><span class="incomingstatus">{{isset($value['Check-In']->time) ? $value['Check-In']->status : isset($value['Check-In']->status) ? $value['Check-In']->status : '-'}}</span></td>
                     <td><span class="out">{{isset($value['Check-Out']->time) ? date('h:i:s A',strtotime($value['Check-Out']->time)) : '-'}}</span></td>
