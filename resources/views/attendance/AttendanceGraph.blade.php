@@ -31,7 +31,8 @@ DGME | Daily Attendance
                 valueFormatString: "MM/DD",
                 // prefix: "$",
                 // labelFormatter: addSymbols
-                title: "Time"
+                title: "Time",
+                valueFormatString: "0:0#"
             },
             toolTip: {
                 shared: true
