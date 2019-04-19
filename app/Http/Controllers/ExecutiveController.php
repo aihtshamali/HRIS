@@ -8,7 +8,10 @@ use App\AttendanceUserMachine2;
 use App\AttendanceLogMachine1;
 use App\AttendanceLogMachine2;
 use Illuminate\Database\Eloquent\Collection;
+use JavaScript;
 use DB;
+use App\AttendanceRemarksMachine1;
+use App\AttendanceRemarksMachine2;
 class ExecutiveController extends Controller
 {
 
@@ -39,7 +42,7 @@ class ExecutiveController extends Controller
         if ($this->parseDataMachine2($date))
             $user_data=array_merge($user_data[0],$this->parseDataMachine2($date));
 
-        return view('attendance.dailyattendance', compact('user_data'));
+        return view('attendance.dailyattendance', compact('user_data','date'));
     }
     // -----------PRIVATE-------------
 
@@ -67,31 +70,55 @@ class ExecutiveController extends Controller
         $officers = AttendanceUserMachine1::where('status', 1)->get();
         $attendance_data = array();
         foreach ($officers as $officer) {
+            // Getting All Logs from Machine 1 
             $logs1 = AttendanceLogMachine1::select('user_id', 'type', 'time', \DB::raw("convert(varchar, time, 23) as mydate"), 'created_at')
-                ->orderBy('user_id', 'ASC')
-                ->get();
+            ->orderBy('user_id', 'ASC')
+            ->get();
+            // For Check-In
             $CheckIn = $logs1
-                ->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-In')->last();
+            ->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-In')->last();
+           
+            // For Checkout
             $CheckOut = $logs1
-                ->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-Out')->last();
+            ->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-Out')->last();
             if ($type == "absent") {
                 if (!$CheckIn) {
-                    $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'Absent');
+                    $data = $this->CheckStatus($CheckIn, 'Absent');
+                    // For Remarks
+                    $comments = AttendanceRemarksMachine1::where('user_id', $officer->id)->where('date', $date)->first();
+                    $data->comments = $comments;
+                    //
+                    $attendance_data[$officer->name]['Check-In'] = $data; 
                     $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Absent');
                 }
             } else if ($type == "late comers") {
                 if ($CheckIn && strtotime(date('H:i:s', strtotime($CheckIn->time))) > strtotime($this->time_in)) {
                     $CheckIn->status = 'Late';
-                    $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'Check-In');
+                    $data = $this->CheckStatus($CheckIn, 'Check-In');
+                    // For Remarks
+                    $comments = AttendanceRemarksMachine1::where('user_id', $officer->id)->where('date', $date)->first();
+                    $data->comments = $comments;
+                    //
+                    $attendance_data[$officer->name]['Check-In'] = $data;
                     $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Check-Out');
                 }
             } else if ($type == "present") {
                 if ($CheckIn != null) {
-                    $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'Check-In');
+                    $data = $this->CheckStatus($CheckIn, 'Check-In');
+                    // For Remarks
+                    $comments = AttendanceRemarksMachine1::where('user_id', $officer->id)->where('date', $date)->first();
+                    $data->comments = $comments;
+                    //
+                    $attendance_data[$officer->name]['Check-In'] = $data;
                     $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Check-Out');
                 }
             } elseif ($type == null) {
-                $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'Check-In');
+                $data = $this->CheckStatus($CheckIn, 'Check-In');
+                // For Remarks
+                $comments = AttendanceRemarksMachine1::where('user_id', $officer->id)->where('date', $date)->first();
+                $data->comments = $comments;
+                //
+                $attendance_data[$officer->name]['Check-In'] = $data;
                 $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Check-Out');
             }
         }
@@ -110,26 +137,47 @@ class ExecutiveController extends Controller
                 ->get();
             $CheckIn = $logs2
                 ->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-In')->last();
+            // For Checkout
             $CheckOut = $logs2
                 ->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-Out')->last();
             if ($type == "absent") {
                 if (!$CheckIn) {
-                    $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'Absent');
+                    $data = $this->CheckStatus($CheckIn, 'Check-In');
+                    // For Remarks
+                    $comments = AttendanceRemarksMachine2::where('user_id', $officer->id)->where('date', $date)->first();
+                    $data->comments = $comments;
+                    //
+                    $attendance_data[$officer->name]['Check-In'] = $data;
                     $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Absent');
                 }
             } else if ($type == "late comers") {
                 if ($CheckIn && strtotime(date('H:i:s', strtotime($CheckIn->time))) > strtotime($this->time_in)) {
                     $CheckIn->status = 'Late';
-                    $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'Check-In');
+                    $data = $this->CheckStatus($CheckIn, 'Check-In');
+                    // For Remarks
+                    $comments = AttendanceRemarksMachine2::where('user_id', $officer->id)->where('date', $date)->first();
+                    $data->comments = $comments;
+                    //
+                    $attendance_data[$officer->name]['Check-In'] = $data;
                     $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Check-Out');
                 }
             } else if ($type == "present") {
                 if ($CheckIn != null) {
-                    $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'Check-In');
+                    $data = $this->CheckStatus($CheckIn, 'Check-In');
+                    // For Remarks
+                    $comments = AttendanceRemarksMachine2::where('user_id', $officer->id)->where('date', $date)->first();
+                    $data->comments = $comments;
+                    //
+                    $attendance_data[$officer->name]['Check-In'] = $data;
                     $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Check-Out');
                 }
             } elseif ($type == null) {
-                $attendance_data[$officer->name]['Check-In'] = $this->CheckStatus($CheckIn,'Check-In');
+                $data = $this->CheckStatus($CheckIn, 'Check-In');
+                // For Remarks
+                $comments = AttendanceRemarksMachine2::where('user_id', $officer->id)->where('date', $date)->first();
+                $data->comments = $comments;
+                //
+                $attendance_data[$officer->name]['Check-In'] = $data;
                 $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Check-Out');
             }
         }
@@ -170,7 +218,20 @@ class ExecutiveController extends Controller
     }
     public function lateComer()
     {
-        return view( 'attendance.lateComer');
+
+        if (!isset($request->date) || $request->date == null) {
+            $date = date('Y-m-d');
+        } else {
+            $date = $request->date;
+        }
+        $user_data = array();
+        if ($this->parseDataMachine1($date, 'late comers'))
+            $user_data[0] = $this->parseDataMachine1($date, 'late comers');
+        if ($this->parseDataMachine2($date, 'late comers'))
+            $user_data = array_merge($user_data[0], $this->parseDataMachine2($date, 'late comers'));
+        $total_count = count($user_data);
+        // dd($total_count);
+        return view('attendance.lateComer', compact('user_data'));
     }
     public function dispatches()
     {
@@ -180,13 +241,16 @@ class ExecutiveController extends Controller
     {
         return view( 'dispatch.create');
     }
-    public function AttendanceGraph()
+    public function AttendanceGraph($name)
     {
+        
+        $user=AttendanceUserMachine1::where('name',$name)->first();
+        $user = $user ? $user : AttendanceUserMachine2::where('name', $name)->first();
+
+        JavaScript::put([
+            'user' => $user,
+        ]);
         return view( 'attendance.AttendanceGraph');        
-    }
-    public function test()
-    {
-        return response()->json(["success" => "oh yea"]);
     }
     public function attendance_welcome()
     {
@@ -230,4 +294,22 @@ class ExecutiveController extends Controller
         $total_late_count= count($total_latecomers);
         return view('welcome', compact('total_count','total_present_count','total_absent_count','total_late_count'));
     }
+     public function AttendanceRemarks(Request $request){
+         $user1 = AttendanceUserMachine1::where('name', $request->user)->first();
+        //  dd($request->all());
+        $user2 = AttendanceUserMachine2::where('name', $request->user)->first();
+        if($user1){
+            $remarks= AttendanceRemarksMachine1::where('user_id',$user1->id)->where('date',$request->date)->first() ? AttendanceRemarksMachine1::where('user_id', $user1->id)->where('date', $request->date)->first() : new AttendanceRemarksMachine1();
+            $remarks->user_id=$user1->id;
+        }else if($user2){
+            $remarks= AttendanceRemarksMachine2::where('user_id',$user2->id)->where('date',$request->date)->first() ? AttendanceRemarksMachine1::where('user_id', $user2->id)->where('date', $request->date)->first() : new AttendanceRemarksMachine2();
+            $remarks->user_id=$user2->id;    
+        }else{
+            return;
+        }
+        $remarks->date=$request->date;
+        $remarks->comments=$request->comments;
+        $remarks->save();
+        return redirect()->back();        
+     }
 }

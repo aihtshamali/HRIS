@@ -28,7 +28,7 @@ DGME | Daily Attendance
                 gridThickness: 1
             },
             axisY: {
-                valueFormatString: "MM/DD",
+                valueFormatString: "####",
                 // prefix: "$",
                 // labelFormatter: addSymbols
                 title: "Time",
@@ -43,17 +43,17 @@ DGME | Daily Attendance
             },
             data: [{
                     type: "column",
-                    // name: "off",
+                    name: "off",
                     showInLegend: true,
                     xValueFormatString: "YYYY mm dd",
-                    yValueFormatString: "$#,##0",
+                    yValueFormatString: "####",
                     dataPoints: [{
                             x: new Date(2019, 03, 6),
-                            y: 60
+                            y: 1216
                         },
                         {
                             x: new Date(2019, 03, 7),
-                            y: 60
+                            y: 1217
                         }
                     ]
                 },
@@ -61,42 +61,42 @@ DGME | Daily Attendance
                     type: "line",
                     name: "Incoming Time",
                     showInLegend: true,
-                    yValueFormatString: "$#,##0",
+                    yValueFormatString: "####",
                     dataPoints: [{
                             x: new Date(2019, 03, 1),
-                            y: 23
+                            y: new Date().getHours()+''+new Date().getMinutes()
                         },
                         {
                             x: new Date(2019, 03, 2),
-                            y: 23
+                            y: new Date().getHours()+''+new Date().getMinutes()
                         },
                         {
                             x: new Date(2019, 03, 3),
-                            y: 33
+                            y: new Date().getHours()+''+new Date().getMinutes()
                         },
                         {
                             x: new Date(2019, 03, 4),
-                            y: 43
+                            y: new Date().getHours()+''+new Date().getMinutes()
                         },
                         {
                             x: new Date(2019, 03, 5),
-                            y: 43
+                            y: new Date().getHours()+''+new Date().getMinutes()
                         },
                         {
                             x: new Date(2019, 03, 8),
-                            y: 53
+                            y: new Date().getHours()+''+new Date().getMinutes()
                         },
                         {
                             x: new Date(2019, 03, 9),
-                            y: 63
+                            y: new Date().getHours()+''+new Date().getMinutes()
                         },
                         {
                             x: new Date(2019, 03, 10),
-                            y: 63
+                            y: new Date().getHours()+''+new Date().getMinutes()
                         },
                         {
                             x: new Date(2019, 03, 11),
-                            y: 53
+                            y: new Date().getHours()+''+new Date().getMinutes()
                         }
                     ]
                 },
@@ -106,42 +106,42 @@ DGME | Daily Attendance
                     // markerBorderColor: "white",
                     markerBorderThickness: 2,
                     showInLegend: true,
-                    yValueFormatString: "$#,##0",
+                    yValueFormatString: "####",
                     dataPoints: [{
                             x: new Date(2019, 03, 1),
-                            y: 25
+                            y: new Date().getHours()+''+new Date().getMinutes()+1
                         },
                         {
                             x: new Date(2019, 03, 2),
-                            y: 10
+                            y: new Date().getHours()+''+new Date().getMinutes()+1
                         },
                         {
                             x: new Date(2019, 03, 3),
-                            y: 15
+                            y: new Date().getHours()+''+new Date().getMinutes()+1
                         },
                         {
                             x: new Date(2019, 03, 4),
-                            y: 55
+                            y: new Date().getHours()+''+new Date().getMinutes()+1
                         },
                         {
                             x: new Date(2019, 03, 5),
-                            y: 35
+                            y: new Date().getHours()+''+new Date().getMinutes()+1
                         },
                         {
                             x: new Date(2019, 03, 8),
-                            y: 5
+                            y: new Date().getHours()+''+new Date().getMinutes()+1
                         },
                         {
                             x: new Date(2019, 03, 9),
-                            y: 30
+                            y: new Date().getHours()+''+new Date().getMinutes()+1
                         },
                         {
                             x: new Date(2019, 03, 10),
-                            y: 63
+                            y: new Date().getHours()+''+new Date().getMinutes()+1
                         },
                         {
                             x: new Date(2019, 03, 11),
-                            y: 53
+                            y: new Date().getHours()+''+new Date().getMinutes()+1
                         }
                     ]
                 }
