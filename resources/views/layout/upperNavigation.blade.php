@@ -117,7 +117,22 @@
         }
 
         #simpletable_filter {
-            display: none;
+            /* display: none; */
+            align-self: center !important;
+            width: 40% !important;
+            margin-left: 25% !important;
+            position: absolute !important;
+            top: 21px !important;
+        }
+
+        #simpletable_filter label {
+            width: 85% !important;
+        }
+
+        #simpletable_filter label input {
+            width: 100%;
+            border: 1px solid #7777778a;
+            padding: 1.5%;
         }
 
         .dataTables_length {
@@ -399,4 +414,4 @@
     }
 </script>
 
-</html> 
+</html>
