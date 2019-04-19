@@ -135,6 +135,11 @@
             padding: 1.5%;
         }
 
+        span select {
+            padding: 3% !important;
+            width: 70% !important;
+        }
+
         .dataTables_length {
             margin: 1.5% 0% 0% 1.5% !important;
             width: 20%;
