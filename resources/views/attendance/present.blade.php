@@ -14,7 +14,7 @@ DGME | Present
             <input type="date" class="form-control col-md-6 float-left" name="date">
             <input type="submit" class="btn btn-sm btn-success offset-md-1" style="margin-top: 0.5%;" value="Search">
         </form>
-        <input class="form-control col-md-5" id="search" type="text" placeholder="Search Here...">
+        <!-- <input class="form-control col-md-5" id="search" type="text" placeholder="Search Here..."> -->
     </div>
     <div class="row">
         <table id="simpletable" class="table table-striped table-bordered nowrap" style="width:100%">
