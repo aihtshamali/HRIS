@@ -30,8 +30,9 @@ DGME | Daily Attendance
             axisY: {
                 valueFormatString: "####",
                 // prefix: "$",
-                labelFormatter: addSymbols,
-                title: "Time"
+                // labelFormatter: addSymbols
+                title: "Time",
+                valueFormatString: "0:0#"
             },
             toolTip: {
                 shared: true
