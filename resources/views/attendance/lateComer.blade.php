@@ -1,10 +1,75 @@
 @extends('layout.upperNavigation')
 @section('title')
-DGME | Daily Attendance
+DGME | Absent
 @endsection
 @section('styleTags')
 <style>
+    .navbar-logo,
+    .pcoded-navbar {
+        display: none !important;
+    }
 
+    .pcoded[theme-layout="vertical"][vertical-placement="left"][vertical-nav-type="expanded"][vertical-effect="shrink"] .pcoded-content {
+        margin-left: 0px !important;
+    }
+
+    td,
+    th {
+        text-align: center;
+    }
+
+    button,
+    input,
+    optgroup,
+    select,
+    textarea {
+        border-radius: 6px !important
+    }
+
+    table {
+        margin-top: 3% !important;
+    }
+
+    th {
+        padding: 8px 0px;
+    }
+
+    tr {
+        border-bottom: 1px solid #ccc;
+        -webkit-transition: all 600ms ease;
+        transition: all 600ms ease;
+    }
+
+    tbody tr:nth-child(even) {
+        color: #555;
+        background-color: #eeecec;
+    }
+
+    tbody tr:hover {
+        color: #777;
+        background-color: #fff;
+        -webkit-transition: all 600ms ease;
+        transition: all 600ms ease;
+    }
+
+    thead:nth-child(1) {
+        background: #404e67 !important;
+        color: #fff !important;
+    }
+
+    th {
+        border: 1px solid #fff;
+    }
+
+    td {
+        border: 1px solid #cccccc47;
+        font-weight: 600;
+    }
+
+    td {
+        border: 1px solid #cccccc47;
+        font-weight: 600;
+    }
 </style>
 @endsection
 @section('content')
@@ -27,7 +92,6 @@ DGME | Daily Attendance
                     <th>Incoming Status</th>
                     <th>Out</th>
                     <th>Outgoing Status</th>
-                    <th>Comments</th>
                 </tr>
             </thead>
             <tbody id="example">
@@ -37,29 +101,11 @@ DGME | Daily Attendance
                 @foreach ($user_data as $key => $value)
                 <tr>
                     <td>{{$i++}}</td>
-                    <td><a href="{{route('AttendanceGraph',$key)}}">{{$key}}</a></td>
+                    <td>{{$key}}</td>
                     <td><span class="in">{{ isset($value['Check-In']->time) ? date('h:i:s A',strtotime($value['Check-In']->time)) : '-'}}</span></td>
                     <td><span class="incomingstatus">{{isset($value['Check-In']->time) ? $value['Check-In']->status : isset($value['Check-In']->status) ? $value['Check-In']->status : '-'}}</span></td>
                     <td><span class="out">{{isset($value['Check-Out']->time) ? date('h:i:s A',strtotime($value['Check-Out']->time)) : '-'}}</span></td>
                     <td><span class="outgoingstatus">{{isset($value['Check-Out']->time) ? $value['Check-Out']->status :isset($value['Check-Out']->status) ? $value['Check-Out']->status : '-'}}</span></td>
-                    <td><form action="{{route('attendance_remarks')}}">
-                        @csrf
-                        <input type="hidden" name="date" value="{{isset($_GET['date']) ? $_GET['date'] : date('Y-m-d')}} ">
-                        <input type="hidden" name="user" value="{{$key}}">
-                        <p><select name="comments" id="" required>
-                            <option value=""></option>
-                            @if (isset($value['Check-In']->comments->comments) && $value['Check-In']->comments->date==$date)
-                            <option value="{{$value['Check-In']->comments->comments}}" selected>{{$value['Check-In']->comments->comments}}</option>
-                            @endif
-                            <option value="On-Visit">On-Visit</option>
-                            <option value="On-Leave">On-Leave</option>
-                            <option value="On-Half Day">On-Half Day</option>    
-                            <option value="On-Short Leave">On-Short Leave</option>    
-                            <option value="On-Mat/Pat Leave">On-Mat/Pat Leave</option>    
-                            <option value="Earned Leave">Earned Leave</option>    
-                        </select></p>
-                        <span><button type="submit">Save</button></span>
-                    </form></td>
                 </tr>
                 @endforeach
             </tbody>
