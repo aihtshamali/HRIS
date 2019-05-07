@@ -28,11 +28,13 @@ DGME | Daily Attendance
                 gridThickness: 1
             },
             axisY: {
-                valueFormatString: "####",
+                // valueFormatString: "####",
                 // prefix: "$",
                 // labelFormatter: addSymbols
                 title: "Time",
-                valueFormatString: "0:0#"
+                valueFormatString: "0:00"
+                // minimum: 800,
+                // maximum: 1700,
             },
             toolTip: {
                 shared: true
@@ -43,17 +45,38 @@ DGME | Daily Attendance
             },
             data: [{
                     type: "column",
-                    name: "off",
+                    name: "Public Holiday",
                     showInLegend: true,
-                    xValueFormatString: "YYYY mm dd",
-                    yValueFormatString: "####",
+                    xValueFormatString: "YYYY MM DD",
+                    yValueFormatString: "##:##",
                     dataPoints: [{
                             x: new Date(2019, 03, 6),
-                            y: 1216
+                            y: 1800
                         },
                         {
                             x: new Date(2019, 03, 7),
-                            y: 1217
+                            y: 1800
+                        }, {
+                            x: new Date(2019, 03, 13),
+                            y: 1800
+                        },
+                        {
+                            x: new Date(2019, 03, 14),
+                            y: 1800
+                        }, {
+                            x: new Date(2019, 03, 20),
+                            y: 1800
+                        },
+                        {
+                            x: new Date(2019, 03, 21),
+                            y: 1800
+                        }, {
+                            x: new Date(2019, 03, 27),
+                            y: 1800
+                        },
+                        {
+                            x: new Date(2019, 03, 28),
+                            y: 1800
                         }
                     ]
                 },
@@ -61,42 +84,116 @@ DGME | Daily Attendance
                     type: "line",
                     name: "Incoming Time",
                     showInLegend: true,
-                    yValueFormatString: "####",
+                    yValueFormatString: "##:##",
                     dataPoints: [{
                             x: new Date(2019, 03, 1),
-                            y: new Date().getHours()+''+new Date().getMinutes()
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 900
                         },
                         {
                             x: new Date(2019, 03, 2),
-                            y: new Date().getHours()+''+new Date().getMinutes()
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 920
                         },
                         {
                             x: new Date(2019, 03, 3),
-                            y: new Date().getHours()+''+new Date().getMinutes()
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 1000
                         },
                         {
                             x: new Date(2019, 03, 4),
-                            y: new Date().getHours()+''+new Date().getMinutes()
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 1200
                         },
                         {
                             x: new Date(2019, 03, 5),
-                            y: new Date().getHours()+''+new Date().getMinutes()
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 1100
                         },
                         {
                             x: new Date(2019, 03, 8),
-                            y: new Date().getHours()+''+new Date().getMinutes()
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 900
                         },
                         {
                             x: new Date(2019, 03, 9),
-                            y: new Date().getHours()+''+new Date().getMinutes()
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 0
                         },
                         {
                             x: new Date(2019, 03, 10),
-                            y: new Date().getHours()+''+new Date().getMinutes()
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 900
                         },
                         {
                             x: new Date(2019, 03, 11),
-                            y: new Date().getHours()+''+new Date().getMinutes()
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 900
+                        },
+                        {
+                            x: new Date(2019, 03, 12),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 900
+                        },
+                        {
+                            x: new Date(2019, 03, 15),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 900
+                        },
+                        {
+                            x: new Date(2019, 03, 16),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 900
+                        },
+                        {
+                            x: new Date(2019, 03, 17),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 900
+                        },
+                        {
+                            x: new Date(2019, 03, 18),
+                            // y: new Date().getHours()+''+new Date().getMinutes()+1
+                            y: 900
+                        },
+                        {
+                            x: new Date(2019, 03, 19),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 900
+                        },
+                        {
+                            x: new Date(2019, 03, 22),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 900
+                        },
+                        {
+                            x: new Date(2019, 03, 23),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 900
+                        },
+                        {
+                            x: new Date(2019, 03, 24),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 900
+                        },
+                        {
+                            x: new Date(2019, 03, 25),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 900
+                        },
+                        {
+                            x: new Date(2019, 03, 26),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 900
+                        },
+                        {
+                            x: new Date(2019, 03, 29),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 900
+                        },
+                        {
+                            x: new Date(2019, 03, 30),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 900
                         }
                     ]
                 },
@@ -106,42 +203,116 @@ DGME | Daily Attendance
                     // markerBorderColor: "white",
                     markerBorderThickness: 2,
                     showInLegend: true,
-                    yValueFormatString: "####",
+                    yValueFormatString: "##:##",
                     dataPoints: [{
                             x: new Date(2019, 03, 1),
-                            y: new Date().getHours()+''+new Date().getMinutes()+1
+                            // y: new Date().getHours()+''+new Date().getMinutes()+1
+                            y: 1700
                         },
                         {
                             x: new Date(2019, 03, 2),
-                            y: new Date().getHours()+''+new Date().getMinutes()+1
+                            // y: new Date().getHours()+''+new Date().getMinutes()+1
+                            y: 1600
                         },
                         {
                             x: new Date(2019, 03, 3),
-                            y: new Date().getHours()+''+new Date().getMinutes()+1
+                            // y: new Date().getHours()+''+new Date().getMinutes()+1
+                            y: 1700
                         },
                         {
                             x: new Date(2019, 03, 4),
-                            y: new Date().getHours()+''+new Date().getMinutes()+1
+                            // y: new Date().getHours()+''+new Date().getMinutes()+1
+                            y: 1700
                         },
                         {
                             x: new Date(2019, 03, 5),
-                            y: new Date().getHours()+''+new Date().getMinutes()+1
+                            // y: new Date().getHours()+''+new Date().getMinutes()+1
+                            y: 1700
                         },
                         {
                             x: new Date(2019, 03, 8),
-                            y: new Date().getHours()+''+new Date().getMinutes()+1
+                            // y: new Date().getHours()+''+new Date().getMinutes()+1
+                            y: 1400
                         },
                         {
                             x: new Date(2019, 03, 9),
-                            y: new Date().getHours()+''+new Date().getMinutes()+1
+                            // y: new Date().getHours()+''+new Date().getMinutes()+1
+                            y: 1700
                         },
                         {
                             x: new Date(2019, 03, 10),
-                            y: new Date().getHours()+''+new Date().getMinutes()+1
+                            // y: new Date().getHours()+''+new Date().getMinutes()+1
+                            y: 1200
                         },
                         {
                             x: new Date(2019, 03, 11),
-                            y: new Date().getHours()+''+new Date().getMinutes()+1
+                            // y: new Date().getHours()+''+new Date().getMinutes()+1
+                            y: 1700
+                        },
+                        {
+                            x: new Date(2019, 03, 12),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 1600
+                        },
+                        {
+                            x: new Date(2019, 03, 15),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 1600
+                        },
+                        {
+                            x: new Date(2019, 03, 16),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 1600
+                        },
+                        {
+                            x: new Date(2019, 03, 17),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 1600
+                        },
+                        {
+                            x: new Date(2019, 03, 18),
+                            // y: new Date().getHours()+''+new Date().getMinutes()+1
+                            y: 1700
+                        },
+                        {
+                            x: new Date(2019, 03, 19),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 1600
+                        },
+                        {
+                            x: new Date(2019, 03, 22),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 1600
+                        },
+                        {
+                            x: new Date(2019, 03, 23),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 1600
+                        },
+                        {
+                            x: new Date(2019, 03, 24),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 1600
+                        },
+                        {
+                            x: new Date(2019, 03, 25),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 1600
+                        },
+                        {
+                            x: new Date(2019, 03, 26),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 1600
+                        },
+                        {
+                            x: new Date(2019, 03, 29),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 1600
+                        },
+                        {
+                            x: new Date(2019, 03, 30),
+                            // y: new Date().getHours()+''+new Date().getMinutes()
+                            y: 1600
                         }
                     ]
                 }
