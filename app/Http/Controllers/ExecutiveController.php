@@ -274,7 +274,10 @@ class ExecutiveController extends Controller
         if ($this->parseDataMachine1($date, 'present'))
             $total_present[0]=$this->parseDataMachine1($date, 'present');
         if ($this->parseDataMachine2($date, 'present'))
-            $total_present=array_merge($total_present[0],$this->parseDataMachine2($date, 'present'));
+            if(isset($total_present[0]))
+                $total_present=array_merge($total_present[0],$this->parseDataMachine2($date, 'present'));
+            else
+                $total_present=array_merge($total_present,$this->parseDataMachine2($date, 'present'));
         $total_present_count= count($total_present);
 
         //absent count
@@ -282,7 +285,10 @@ class ExecutiveController extends Controller
         if ($this->parseDataMachine1($date, 'absent'))
             $total_absent[0]=$this->parseDataMachine1($date, 'absent');
         if ($this->parseDataMachine2($date, 'absent'))
-            $total_absent=array_merge($total_absent[0],$this->parseDataMachine2($date, 'absent'));
+            if(isset($total_absent[0]))
+                $total_absent=array_merge($total_absent[0],$this->parseDataMachine2($date, 'present'));
+            else
+                $total_absent=array_merge($total_absent,$this->parseDataMachine2($date, 'absent'));
         $total_absent_count= count($total_absent);
 
         //late comers
@@ -290,7 +296,10 @@ class ExecutiveController extends Controller
         if ($this->parseDataMachine1($date, 'late comers'))
             $total_latecomers[0]=$this->parseDataMachine1($date, 'late comers');
         if ($this->parseDataMachine2($date, 'late comers'))
-            $total_latecomers=array_merge($total_latecomers[0],$this->parseDataMachine2($date, 'late comers'));
+            if(isset($total_latecomers[0]))
+                $total_latecomers=array_merge($total_latecomers[0],$this->parseDataMachine2($date, 'present'));
+            else
+                $total_latecomers=array_merge($total_latecomers,$this->parseDataMachine2($date, 'late comers'));
         $total_late_count= count($total_latecomers);
         return view('welcome', compact('total_count','total_present_count','total_absent_count','total_late_count'));
     }
