@@ -55,7 +55,8 @@ DGME | Daily Attendance
                             <option value="On-Leave">On-Leave</option>
                             <option value="On-Half Day">On-Half Day</option>    
                             <option value="On-Short Leave">On-Short Leave</option>    
-                            <option value="On-Mat/Pat Leave">On-Mat/Pat Leave</option>    
+                            <option value="On-Mat Leave">On-Mat Leave</option>    
+                            <option value="On-Pat Leave">On-Pat Leave</option>    
                             <option value="Earned Leave">Earned Leave</option>    
                         </select></p>
                         <span><button type="submit">Save</button></span>
