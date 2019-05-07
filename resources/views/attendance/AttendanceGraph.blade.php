@@ -70,7 +70,8 @@ DGME | Daily Attendance
                         {
                             x: new Date(2019, 03, 21),
                             y: 1800
-                        }, {
+                        }, 
+                        {
                             x: new Date(2019, 03, 27),
                             y: 1800
                         },
