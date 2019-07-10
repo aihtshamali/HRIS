@@ -10,7 +10,7 @@ DGME | Daily Attendance
 <div id="chartContainer" style="height: 500px; width: 100%;"></div>
 @endsection
 @section("js_scripts")
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="{{ asset('js/canvas.js')}}"></script>
 <script>
     window.onload = function() {
         var today = new Date();
