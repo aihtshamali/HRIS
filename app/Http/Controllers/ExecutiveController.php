@@ -64,16 +64,18 @@ class ExecutiveController extends Controller
     }
     private function parseDataMachine1($date = null, $type = null)
     {
+        // dd('asd');
         if ($date == null) {
             $date = date('Y-m-d');
         }
         $officers = AttendanceUserMachine1::where('status', 1)->get();
         $attendance_data = array();
+        // Getting All Logs from Machine 1 
+        $logs1 = AttendanceLogMachine1::select('user_id', 'type', 'time', \DB::raw("convert(varchar, time, 23) as mydate"), 'created_at')
+        ->orderBy('user_id', 'ASC')
+        ->get();
         foreach ($officers as $officer) {
-            // Getting All Logs from Machine 1 
-            $logs1 = AttendanceLogMachine1::select('user_id', 'type', 'time', \DB::raw("convert(varchar, time, 23) as mydate"), 'created_at')
-            ->orderBy('user_id', 'ASC')
-            ->get();
+            // dd($logs1);
             // For Check-In
             $CheckIn = $logs1
             ->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-In')->last();
@@ -131,10 +133,10 @@ class ExecutiveController extends Controller
         }
         $officers = AttendanceUserMachine2::where('status', 1)->get();
         $attendance_data = array();
+        $logs2 = AttendanceLogMachine2::select('user_id', 'type', 'time', \DB::raw("convert(varchar, time, 23) as mydate"), 'created_at')
+            ->orderBy('user_id', 'ASC')
+            ->get();
         foreach ($officers as $officer) {
-            $logs2 = AttendanceLogMachine2::select('user_id', 'type', 'time', \DB::raw("convert(varchar, time, 23) as mydate"), 'created_at')
-                ->orderBy('user_id', 'ASC')
-                ->get();
             $CheckIn = $logs2
                 ->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-In')->last();
             // For Checkout
@@ -252,62 +254,77 @@ class ExecutiveController extends Controller
         ]);
         return view( 'attendance.AttendanceGraph');        
     }
+    public function getAttendanceByStatus(Request $request){
+        
+        $date = date('Y-m-d');
+        $machine1 = $this->parseDataMachine1($date,$request->status);
+        $machine2 = $this->parseDataMachine2($date,$request->status);
+        $user_data =array();
+        if (count($machine1))
+            $user_data[0] = $machine1;
+        if (count($machine2))
+            $user_data = array_merge($user_data[0], $machine2);
+        $total_count = count($user_data);
+        return response()->json($total_count);
+    }
     public function attendance_welcome()
     {
-        if (!isset($request->date) || $request->date == null) {
-            $date = date('Y-m-d');
-        } else {
-            $date = $request->date;
-        }
+        // if (!isset($request->date) || $request->date == null) {
+            // $date = date('Y-m-d');
+        // } else {
+        //     $date = $request->date;
+        // }
         //total
-        $daily_total = array();
-        $machine1=$this->parseDataMachine1($date);
-        $machine2=$this->parseDataMachine2($date);
-        if (count($machine1))
-            $user_data[0]=$machine1;
-        if (count($machine2))
-            $user_data=array_merge($user_data[0],$machine2);
-        $total_count=count($user_data);
-            // dd(count($user_data));
-        //present persons
-        $total_present = array();
-        $presentMachine1 = $this->parseDataMachine1($date, 'present');
-        $presentMachine2 = $this->parseDataMachine2($date, 'present');
-        if (count($presentMachine1))
-            $total_present[0]= $presentMachine1;
-        if (count($presentMachine2))
-            if(isset($total_present[0]))
-                $total_present=array_merge($total_present[0],$presentMachine2);
-            else
-                $total_present=array_merge($total_present,$presentMachine2);
-        $total_present_count= count($total_present);
+        // $daily_total = array();
+        // $machine1=$this->parseDataMachine1($date);
+        // $machine2=$this->parseDataMachine2($date);
+        // if (count($machine1))
+        //     $user_data[0]=$machine1;
+        // if (count($machine2))
+        //     $user_data=array_merge($user_data[0],$machine2);
+        // $total_count=count($user_data);
+        //     // dd(count($user_data));
+        // //present persons
+        // $total_present = array();
+        // $presentMachine1 = $this->parseDataMachine1($date, 'present');
+        // $presentMachine2 = $this->parseDataMachine2($date, 'present');
+        // if (count($presentMachine1))
+        //     $total_present[0]= $presentMachine1;
+        // if (count($presentMachine2))
+        //     if(isset($total_present[0]))
+        //         $total_present=array_merge($total_present[0],$presentMachine2);
+        //     else
+        //         $total_present=array_merge($total_present,$presentMachine2);
+        // $total_present_count= count($total_present);
 
-        //absent count
-        $absentMachine1 = $this->parseDataMachine1($date, 'absent');
-        $absentMachine2 = $this->parseDataMachine2($date, 'absent');
-        $total_absent = array();
-        if (count($absentMachine1))
-            $total_absent[0]=$absentMachine1;
-        if (count($absentMachine2))
-            if(isset($total_absent[0]))
-                $total_absent=array_merge($total_absent[0],$absentMachine2);
-            else
-                $total_absent=array_merge($total_absent,$absentMachine2);
-        $total_absent_count= count($total_absent);
+        // //absent count
+        // $absentMachine1 = $this->parseDataMachine1($date, 'absent');
+        // $absentMachine2 = $this->parseDataMachine2($date, 'absent');
+        // $total_absent = array();
+        // if (count($absentMachine1))
+        //     $total_absent[0]=$absentMachine1;
+        // if (count($absentMachine2))
+        //     if(isset($total_absent[0]))
+        //         $total_absent=array_merge($total_absent[0],$absentMachine2);
+        //     else
+        //         $total_absent=array_merge($total_absent,$absentMachine2);
+        // $total_absent_count= count($total_absent);
 
-        //late comers
-        $lateMachine1 = $this->parseDataMachine1($date, 'late comers');
-        $lateMachine2 = $this->parseDataMachine2($date, 'late comers');
-        $total_latecomers = array();
-        if (count($lateMachine1))
-            $total_latecomers[0]=$lateMachine1;
-        if (count($lateMachine2))
-            if(isset($total_latecomers[0]))
-                $total_latecomers=array_merge($total_latecomers[0],$lateMachine2);
-            else
-                $total_latecomers=array_merge($total_latecomers,$lateMachine2);
-        $total_late_count= count($total_latecomers);
-        return view('welcome', compact('total_count','total_present_count','total_absent_count','total_late_count'));
+        // //late comers
+        // $lateMachine1 = $this->parseDataMachine1($date, 'late comers');
+        // $lateMachine2 = $this->parseDataMachine2($date, 'late comers');
+        // $total_latecomers = array();
+        // if (count($lateMachine1))
+        //     $total_latecomers[0]=$lateMachine1;
+        // if (count($lateMachine2))
+        //     if(isset($total_latecomers[0]))
+        //         $total_latecomers=array_merge($total_latecomers[0],$lateMachine2);
+        //     else
+        //         $total_latecomers=array_merge($total_latecomers,$lateMachine2);
+        // $total_late_count= count($total_latecomers);
+        return view('welcome'
+        // , compact('total_count','total_present_count','total_absent_count','total_late_count')
+            );
     }
      public function AttendanceRemarks(Request $request){
          $user1 = AttendanceUserMachine1::where('name', $request->user)->first();
