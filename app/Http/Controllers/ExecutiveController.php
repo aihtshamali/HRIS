@@ -254,8 +254,6 @@ class ExecutiveController extends Controller
     }
     public function attendance_welcome()
     {
-
-
         if (!isset($request->date) || $request->date == null) {
             $date = date('Y-m-d');
         } else {
@@ -263,43 +261,51 @@ class ExecutiveController extends Controller
         }
         //total
         $daily_total = array();
-        if ($this->parseDataMachine1($date))
-            $user_data[0]=$this->parseDataMachine1($date);
-        if ($this->parseDataMachine2($date))
-            $user_data=array_merge($user_data[0],$this->parseDataMachine2($date));
+        $machine1=$this->parseDataMachine1($date);
+        $machine2=$this->parseDataMachine2($date);
+        if (count($machine1))
+            $user_data[0]=$machine1;
+        if (count($machine2))
+            $user_data=array_merge($user_data[0],$machine2);
         $total_count=count($user_data);
             // dd(count($user_data));
         //present persons
         $total_present = array();
-        if ($this->parseDataMachine1($date, 'present'))
-            $total_present[0]=$this->parseDataMachine1($date, 'present');
-        if ($this->parseDataMachine2($date, 'present'))
+        $presentMachine1 = $this->parseDataMachine1($date, 'present');
+        $presentMachine2 = $this->parseDataMachine2($date, 'present');
+        if (count($presentMachine1))
+            $total_present[0]= $presentMachine1;
+        if (count($presentMachine2))
             if(isset($total_present[0]))
-                $total_present=array_merge($total_present[0],$this->parseDataMachine2($date, 'present'));
+                $total_present=array_merge($total_present[0],$presentMachine2);
             else
-                $total_present=array_merge($total_present,$this->parseDataMachine2($date, 'present'));
+                $total_present=array_merge($total_present,$presentMachine2);
         $total_present_count= count($total_present);
 
         //absent count
+        $absentMachine1 = $this->parseDataMachine1($date, 'absent');
+        $absentMachine2 = $this->parseDataMachine2($date, 'absent');
         $total_absent = array();
-        if ($this->parseDataMachine1($date, 'absent'))
-            $total_absent[0]=$this->parseDataMachine1($date, 'absent');
-        if ($this->parseDataMachine2($date, 'absent'))
+        if (count($absentMachine1))
+            $total_absent[0]=$absentMachine1;
+        if (count($absentMachine2))
             if(isset($total_absent[0]))
-                $total_absent=array_merge($total_absent[0],$this->parseDataMachine2($date, 'present'));
+                $total_absent=array_merge($total_absent[0],$absentMachine2);
             else
-                $total_absent=array_merge($total_absent,$this->parseDataMachine2($date, 'absent'));
+                $total_absent=array_merge($total_absent,$absentMachine2);
         $total_absent_count= count($total_absent);
 
         //late comers
+        $lateMachine1 = $this->parseDataMachine1($date, 'late comers');
+        $lateMachine2 = $this->parseDataMachine2($date, 'late comers');
         $total_latecomers = array();
-        if ($this->parseDataMachine1($date, 'late comers'))
-            $total_latecomers[0]=$this->parseDataMachine1($date, 'late comers');
-        if ($this->parseDataMachine2($date, 'late comers'))
+        if (count($lateMachine1))
+            $total_latecomers[0]=$lateMachine1;
+        if (count($lateMachine2))
             if(isset($total_latecomers[0]))
-                $total_latecomers=array_merge($total_latecomers[0],$this->parseDataMachine2($date, 'present'));
+                $total_latecomers=array_merge($total_latecomers[0],$lateMachine2);
             else
-                $total_latecomers=array_merge($total_latecomers,$this->parseDataMachine2($date, 'late comers'));
+                $total_latecomers=array_merge($total_latecomers,$lateMachine2);
         $total_late_count= count($total_latecomers);
         return view('welcome', compact('total_count','total_present_count','total_absent_count','total_late_count'));
     }
