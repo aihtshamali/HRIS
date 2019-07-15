@@ -248,31 +248,31 @@ DGME | Attendance Dashboard
                             <td>1</td>
                             <td>10</td>
                             <td>purple</td>
-                            <td>kl</td>
+                            <td>1 day ago</td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>10</td>
                             <td>blue</td>
-                            <td>parso</td>
+                            <td>2 days ago</td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>10</td>
                             <td>green</td>
-                            <td>tarso</td>
+                            <td>3 days ago</td>
                         </tr>
                         <tr>
                             <td>4</td>
                             <td>30</td>
                             <td>black</td>
-                            <td>us sy pichla</td>
+                            <td>4 days ago</td>
                         </tr>
                         <tr>
                             <td>5</td>
                             <td>10</td>
                             <td>brown</td>
-                            <td>usk b pichla</td>
+                            <td>5 days ago</td>
                         </tr>
                     </table>
                 </div>
@@ -290,7 +290,7 @@ DGME | Attendance Dashboard
                 <div class="col-md-11 absiconcardbordrad brown">
                     <div id="diagram-id-1" class="diagram" data-circle-diagram='{
 							"percent": "34.2%",
-							"month": "january",
+							"month": "july",
 							"size": "100px",
 							"sizelineheight": "90px",
 							"borderWidth": "4",
