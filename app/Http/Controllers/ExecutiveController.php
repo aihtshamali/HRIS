@@ -64,6 +64,9 @@ class ExecutiveController extends Controller
     }
     private function parseDataMachine1($date = null, $type = null)
     {
+        // $data = collect(DB::select('exec getTodaysAttendanceMachine1 "' . $date . '"'));
+        // dd($data[0]->where('type', 'Check-In'));
+
         if ($date == null) {
             $date = date('Y-m-d');
         }
@@ -79,8 +82,7 @@ class ExecutiveController extends Controller
             ->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-In')->last();
            
             // For Checkout
-            $CheckOut = $logs1
-            ->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-Out')->last();
+            $CheckOut = $logs1->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-Out')->last();
             if ($type == "absent") {
                 if (!$CheckIn) {
                     $data = $this->CheckStatus($CheckIn, 'Absent');
@@ -267,6 +269,7 @@ class ExecutiveController extends Controller
     }
     public function attendance_welcome()
     {
+        
         // if (!isset($request->date) || $request->date == null) {
             // $date = date('Y-m-d');
         // } else {
