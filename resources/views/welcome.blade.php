@@ -332,9 +332,9 @@ DGME | Attendance Dashboard
             // fetch(url+'?status=late comers').then(response => response.json()).then(data => $(".late_comers_count").text(data));
 
             // Stop Pending Requests
-            // $('a').click(function(){
-            //     window.stop();
-            // })
+            $('a').click(function(){
+                window.stop();
+            })
         })
     </script>
 @endsection
