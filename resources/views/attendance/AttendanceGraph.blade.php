@@ -8,6 +8,39 @@ DGME | Daily Attendance
 @endsection
 @section('content')
 <div id="chartContainer" style="height: 500px; width: 100%;"></div>
+<table style="width:100%;">
+    <thead>
+        <tr>
+            <th colspan="4">First Name</th>
+        </tr>
+        <tr class"">
+            <th>Sr #.</th>
+            <th>Attendance Status</th>
+            <th>Incoming Status</th>
+            <th>Outgoing Status</th>
+        </tr>
+    </thead>
+    <tbody id="example">
+        <tr>
+            <th>1.</th>
+            <th>yes</th>
+            <th>09:00</th>
+            <th>05:00</th>
+        </tr>
+        <tr>
+            <th>2.</th>
+            <th>No</th>
+            <th>00:00</th>
+            <th>00:00</th>
+        </tr>
+        <tr>
+            <th>3.</th>
+            <th>yes</th>
+            <th>09:00</th>
+            <th>05:00</th>
+        </tr>
+    </tbody>
+</table>
 @endsection
 @section("js_scripts")
 <script src="{{ asset('js/canvas.js')}}"></script>
@@ -70,7 +103,7 @@ DGME | Daily Attendance
                         {
                             x: new Date(2019, 03, 21),
                             y: 1800
-                        }, 
+                        },
                         {
                             x: new Date(2019, 03, 27),
                             y: 1800

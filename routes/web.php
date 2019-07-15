@@ -24,3 +24,5 @@ Route::get( '/create', 'ExecutiveController@creates')->name( 'create');
 Route::get( '/lateComer', 'ExecutiveController@lateComer')->name( 'lateComer');
 Route::get( '/AttendanceGraph/{name}', 'ExecutiveController@AttendanceGraph')->name( 'AttendanceGraph');
 Route::get( '/AttendanceRemarks', 'ExecutiveController@AttendanceRemarks')->name( 'attendance_remarks');
+// Attendance Count
+Route::get('/getAttendanceCount', 'ExecutiveController@getAttendanceByStatus')->name('getAttendanceCount');
