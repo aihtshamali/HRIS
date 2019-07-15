@@ -167,72 +167,79 @@ DGME | Attendance Dashboard
     .brown {
         background: #a52a2a
     }
+
+    @media (min-width: 576px)
+    {
+        .topmargin{margin-top: 7%;}
+    }
 </style>
 @endsection
 @section('content')
-<div class="row" style="padding:3% !important;">
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="col-md-3 absiconcard orrange hidden-xs hidden-sm">
-                    <i class="feather icon-users"></i>
+<div class="col-md-12">
+    <div class="row" style="padding:3% !important;">
+        <div class="col-sm-3 topmargin">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-md-3 absiconcard orrange hidden-xs hidden-sm">
+                        <i class="feather icon-users"></i>
+                    </div>
+                    <h5 class="card-title col-sm-7 offset-md-5 float-right">Attendance</h5>
+                    <h2 class="card-text"><b class="total_count">-</b></h2>
+                    <hr />
+                    <a href="{{route('dailyattendance')}}" target="_balnk">
+                        <h6><i class="feather icon-file-text"></i> Show All</h6>
+                    </a>
                 </div>
-                <h5 class="card-title col-sm-7 offset-md-5 float-right">Attendance</h5>
-                <h2 class="card-text"><b>{{$total_count}}</b></h2>
-                <hr />
-                <a href="{{route('dailyattendance')}}">
-                    <h6><i class="feather icon-file-text"></i> Show All</h6>
-                </a>
             </div>
         </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="col-md-3 absiconcard green hidden-xs hidden-sm">
-                    <i class="feather icon-user"></i>
+        <div class="col-sm-3 topmargin">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-md-3 absiconcard green hidden-xs hidden-sm">
+                        <i class="feather icon-user"></i>
+                    </div>
+                    <h5 class="card-title col-sm-7 offset-md-5 float-right">Present</h5>
+                    <h2 class="card-text"><b class="present_count">-</b></h2>
+                    <hr />
+                    <a href="{{route('present')}}">
+                        <h6><i class="feather icon-file-text"></i> Show All</h6>
+                    </a>
                 </div>
-                <h5 class="card-title col-sm-7 offset-md-5 float-right">Present</h5>
-                <h2 class="card-text"><b>{{$total_present_count}}</b></h2>
-                <hr />
-                <a href="{{route('present')}}">
-                    <h6><i class="feather icon-file-text"></i> Show All</h6>
-                </a>
             </div>
         </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="col-md-3 absiconcard red hidden-xs hidden-sm">
-                    <i class="feather icon-thumbs-down"></i>
+        <div class="col-sm-3 topmargin">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-md-3 absiconcard red hidden-xs hidden-sm">
+                        <i class="feather icon-thumbs-down"></i>
+                    </div>
+                    <h5 class="card-title col-sm-7 offset-md-5 float-right">Absent</h5>
+                    <h2 class="card-text"><b class="absent_count">-</b></h2>
+                    <hr />
+                    <a href="{{route('Absent')}}">
+                        <h6><i class="feather icon-file-text"></i> Show All</h6>
+                    </a>
                 </div>
-                <h5 class="card-title col-sm-7 offset-md-5 float-right">Absent</h5>
-                <h2 class="card-text"><b>{{$total_absent_count}}</b></h2>
-                <hr />
-                <a href="{{route('Absent')}}">
-                    <h6><i class="feather icon-file-text"></i> Show All</h6>
-                </a>
             </div>
         </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="col-md-3 absiconcard sky hidden-xs hidden-sm">
-                    <i class="feather icon-clock"></i>
+        <div class="col-sm-3 topmargin">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-md-3 absiconcard sky hidden-xs hidden-sm">
+                        <i class="feather icon-clock"></i>
+                    </div>
+                    <h5 class="card-title col-sm-7 offset-md-5 float-right">Late Comers</h5>
+                    <h2 class="card-text"><b class="late_comers_count">-</b></h2>
+                    <hr />
+                    <a href="{{route('lateComer')}}">
+                        <h6><i class="feather icon-file-text"></i> Show All</h6>
+                    </a>
                 </div>
-                <h5 class="card-title col-sm-7 offset-md-5 float-right">Late Comers</h5>
-                <h2 class="card-text"><b>{{$total_late_count}}</b></h2>
-                <hr />
-                <a href="{{route('lateComer')}}">
-                    <h6><i class="feather icon-file-text"></i> Show All</h6>
-                </a>
             </div>
         </div>
     </div>
 </div>
-<div class="row" style="margin-top:3%;">
+<!-- <div class="row" style="margin-top:3%;">
     <div class="col-sm-4 offset-md-2">
         <div class="card">
             <div class="card-body">
@@ -248,31 +255,31 @@ DGME | Attendance Dashboard
                             <td>1</td>
                             <td>10</td>
                             <td>purple</td>
-                            <td>kl</td>
+                            <td>1 day ago</td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>10</td>
                             <td>blue</td>
-                            <td>parso</td>
+                            <td>2 days ago</td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>10</td>
                             <td>green</td>
-                            <td>tarso</td>
+                            <td>3 days ago</td>
                         </tr>
                         <tr>
                             <td>4</td>
                             <td>30</td>
                             <td>black</td>
-                            <td>us sy pichla</td>
+                            <td>4 days ago</td>
                         </tr>
                         <tr>
                             <td>5</td>
                             <td>10</td>
                             <td>brown</td>
-                            <td>usk b pichla</td>
+                            <td>5 days ago</td>
                         </tr>
                     </table>
                 </div>
@@ -290,7 +297,7 @@ DGME | Attendance Dashboard
                 <div class="col-md-11 absiconcardbordrad brown">
                     <div id="diagram-id-1" class="diagram" data-circle-diagram='{
 							"percent": "34.2%",
-							"month": "january",
+							"month": "july",
 							"size": "100px",
 							"sizelineheight": "90px",
 							"borderWidth": "4",
@@ -310,31 +317,24 @@ DGME | Attendance Dashboard
             </div>
         </div>
     </div>
-</div>
+</div> -->
 @endsection
-@section("js_scripts")
-<script src="{{asset('js/jquery.circle-diagram.js')}}"></script>
-<script src="{{asset('js/main.js')}}"></script>
-<script src="{{asset('js/jquery.chart.js')}}"></script>
-<script>
-    $(function() {
-        if (!(/^\?noconvert/gi).test(location.search))
-            $(".donutchart").donutChart().css("border", "solid 1px black");
-    });
-</script>
-<script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-36251023-1']);
-    _gaq.push(['_setDomainName', 'jqueryscript.net']);
-    _gaq.push(['_trackPageview']);
+@section('js_scripts')
+    <script>
+        $(document).ready(function(){
+            // const url = '{{route("getAttendanceCount")}}'
+            // fetch(url).then(response => response.json()).then(data => $(".total_count").text(data));
+            // // Present
+            // fetch(url+'?status=present').then(response => response.json()).then(data => $(".present_count").text(data));
+            // // Absent 
+            // fetch(url+'?status=absent').then(response => response.json()).then(data => $(".absent_count").text(data));
+            // // Late Comers
+            // fetch(url+'?status=late comers').then(response => response.json()).then(data => $(".late_comers_count").text(data));
 
-    (function() {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
-</script>
-@endsection 
+            // Stop Pending Requests
+            // $('a').click(function(){
+            //     window.stop();
+            // })
+        })
+    </script>
+@endsection
