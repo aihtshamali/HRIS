@@ -64,16 +64,18 @@ class ExecutiveController extends Controller
     }
     private function parseDataMachine1($date = null, $type = null)
     {
+        // dd('asd');
         if ($date == null) {
             $date = date('Y-m-d');
         }
         $officers = AttendanceUserMachine1::where('status', 1)->get();
         $attendance_data = array();
+        // Getting All Logs from Machine 1 
+        $logs1 = AttendanceLogMachine1::select('user_id', 'type', 'time', \DB::raw("convert(varchar, time, 23) as mydate"), 'created_at')
+        ->orderBy('user_id', 'ASC')
+        ->get();
         foreach ($officers as $officer) {
-            // Getting All Logs from Machine 1 
-            $logs1 = AttendanceLogMachine1::select('user_id', 'type', 'time', \DB::raw("convert(varchar, time, 23) as mydate"), 'created_at')
-            ->orderBy('user_id', 'ASC')
-            ->get();
+            // dd($logs1);
             // For Check-In
             $CheckIn = $logs1
             ->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-In')->last();
@@ -131,10 +133,10 @@ class ExecutiveController extends Controller
         }
         $officers = AttendanceUserMachine2::where('status', 1)->get();
         $attendance_data = array();
+        $logs2 = AttendanceLogMachine2::select('user_id', 'type', 'time', \DB::raw("convert(varchar, time, 23) as mydate"), 'created_at')
+            ->orderBy('user_id', 'ASC')
+            ->get();
         foreach ($officers as $officer) {
-            $logs2 = AttendanceLogMachine2::select('user_id', 'type', 'time', \DB::raw("convert(varchar, time, 23) as mydate"), 'created_at')
-                ->orderBy('user_id', 'ASC')
-                ->get();
             $CheckIn = $logs2
                 ->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-In')->last();
             // For Checkout
@@ -268,7 +270,8 @@ class ExecutiveController extends Controller
         if ($this->parseDataMachine2($date))
             $user_data=array_merge($user_data[0],$this->parseDataMachine2($date));
         $total_count=count($user_data);
-            // dd(count($user_data));
+
+            // dd($daily_total);
         //present persons
         $total_present = array();
         if ($this->parseDataMachine1($date, 'present'))
@@ -290,6 +293,7 @@ class ExecutiveController extends Controller
             else
                 $total_absent=array_merge($total_absent,$this->parseDataMachine2($date, 'absent'));
         $total_absent_count= count($total_absent);
+        // dd($total_absent);
 
         //late comers
         $total_latecomers = array();
