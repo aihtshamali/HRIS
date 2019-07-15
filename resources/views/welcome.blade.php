@@ -167,72 +167,79 @@ DGME | Attendance Dashboard
     .brown {
         background: #a52a2a
     }
+
+    @media (min-width: 576px)
+    {
+        .topmargin{margin-top: 7%;}
+    }
 </style>
 @endsection
 @section('content')
-<div class="row" style="padding:3% !important;">
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="col-md-3 absiconcard orrange hidden-xs hidden-sm">
-                    <i class="feather icon-users"></i>
+<div class="col-md-6 offset-md-3">
+    <div class="row" style="padding:3% !important;">
+        <div class="col-sm-6 topmargin">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-md-3 absiconcard orrange hidden-xs hidden-sm">
+                        <i class="feather icon-users"></i>
+                    </div>
+                    <h5 class="card-title col-sm-7 offset-md-5 float-right">Attendance</h5>
+                    <h2 class="card-text"><b>{{$total_count}}</b></h2>
+                    <hr />
+                    <a href="{{route('dailyattendance')}}">
+                        <h6><i class="feather icon-file-text"></i> Show All</h6>
+                    </a>
                 </div>
-                <h5 class="card-title col-sm-7 offset-md-5 float-right">Attendance</h5>
-                <h2 class="card-text"><b>{{$total_count}}</b></h2>
-                <hr />
-                <a href="{{route('dailyattendance')}}">
-                    <h6><i class="feather icon-file-text"></i> Show All</h6>
-                </a>
             </div>
         </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="col-md-3 absiconcard green hidden-xs hidden-sm">
-                    <i class="feather icon-user"></i>
+        <div class="col-sm-6 topmargin">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-md-3 absiconcard green hidden-xs hidden-sm">
+                        <i class="feather icon-user"></i>
+                    </div>
+                    <h5 class="card-title col-sm-7 offset-md-5 float-right">Present</h5>
+                    <h2 class="card-text"><b>{{$total_present_count}}</b></h2>
+                    <hr />
+                    <a href="{{route('present')}}">
+                        <h6><i class="feather icon-file-text"></i> Show All</h6>
+                    </a>
                 </div>
-                <h5 class="card-title col-sm-7 offset-md-5 float-right">Present</h5>
-                <h2 class="card-text"><b>{{$total_present_count}}</b></h2>
-                <hr />
-                <a href="{{route('present')}}">
-                    <h6><i class="feather icon-file-text"></i> Show All</h6>
-                </a>
             </div>
         </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="col-md-3 absiconcard red hidden-xs hidden-sm">
-                    <i class="feather icon-thumbs-down"></i>
+        <div class="col-sm-6 topmargin">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-md-3 absiconcard red hidden-xs hidden-sm">
+                        <i class="feather icon-thumbs-down"></i>
+                    </div>
+                    <h5 class="card-title col-sm-7 offset-md-5 float-right">Absent</h5>
+                    <h2 class="card-text"><b>{{$total_absent_count}}</b></h2>
+                    <hr />
+                    <a href="{{route('Absent')}}">
+                        <h6><i class="feather icon-file-text"></i> Show All</h6>
+                    </a>
                 </div>
-                <h5 class="card-title col-sm-7 offset-md-5 float-right">Absent</h5>
-                <h2 class="card-text"><b>{{$total_absent_count}}</b></h2>
-                <hr />
-                <a href="{{route('Absent')}}">
-                    <h6><i class="feather icon-file-text"></i> Show All</h6>
-                </a>
             </div>
         </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-body">
-                <div class="col-md-3 absiconcard sky hidden-xs hidden-sm">
-                    <i class="feather icon-clock"></i>
+        <div class="col-sm-6 topmargin">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-md-3 absiconcard sky hidden-xs hidden-sm">
+                        <i class="feather icon-clock"></i>
+                    </div>
+                    <h5 class="card-title col-sm-7 offset-md-5 float-right">Late Comers</h5>
+                    <h2 class="card-text"><b>{{$total_late_count}}</b></h2>
+                    <hr />
+                    <a href="{{route('lateComer')}}">
+                        <h6><i class="feather icon-file-text"></i> Show All</h6>
+                    </a>
                 </div>
-                <h5 class="card-title col-sm-7 offset-md-5 float-right">Late Comers</h5>
-                <h2 class="card-text"><b>{{$total_late_count}}</b></h2>
-                <hr />
-                <a href="{{route('lateComer')}}">
-                    <h6><i class="feather icon-file-text"></i> Show All</h6>
-                </a>
             </div>
         </div>
     </div>
 </div>
-<div class="row" style="margin-top:3%;">
+<!-- <div class="row" style="margin-top:3%;">
     <div class="col-sm-4 offset-md-2">
         <div class="card">
             <div class="card-body">
@@ -310,7 +317,7 @@ DGME | Attendance Dashboard
             </div>
         </div>
     </div>
-</div>
+</div> -->
 @endsection
 @section("js_scripts")
 <script src="{{asset('js/jquery.circle-diagram.js')}}"></script>
@@ -337,4 +344,4 @@ DGME | Attendance Dashboard
         s.parentNode.insertBefore(ga, s);
     })();
 </script>
-@endsection 
+@endsection
