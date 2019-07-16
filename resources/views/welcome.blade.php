@@ -322,14 +322,14 @@ DGME | Attendance Dashboard
 @section('js_scripts')
     <script>
         $(document).ready(function(){
-            // const url = '{{route("getAttendanceCount")}}'
-            // fetch(url).then(response => response.json()).then(data => $(".total_count").text(data));
-            // // Present
-            // fetch(url+'?status=present').then(response => response.json()).then(data => $(".present_count").text(data));
-            // // Absent 
-            // fetch(url+'?status=absent').then(response => response.json()).then(data => $(".absent_count").text(data));
-            // // Late Comers
-            // fetch(url+'?status=late comers').then(response => response.json()).then(data => $(".late_comers_count").text(data));
+            const url = '{{route("getAttendanceCount")}}'
+            fetch(url).then(response => response.json()).then(data => $(".total_count").text(data));
+            // Present
+            fetch(url+'?status=present').then(response => response.json()).then(data => $(".present_count").text(data));
+            // Absent 
+            fetch(url+'?status=absent').then(response => response.json()).then(data => $(".absent_count").text(data));
+            // Late Comers
+            fetch(url+'?status=late comers').then(response => response.json()).then(data => $(".late_comers_count").text(data));
 
             // Stop Pending Requests
             $('a').click(function(){

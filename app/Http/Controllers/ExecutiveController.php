@@ -48,7 +48,7 @@ class ExecutiveController extends Controller
 
     private function CheckStatus($attendance_data, $type)
     {
-        if (!$attendance_data || $type== 'Absent') {
+        if (!isset($attendance_data->time) || $type== 'Absent') {
             $attendance_data=new Collection();
             $attendance_data->status = "Absent";
         } else if ($type== 'Check-In' && strtotime(date('H:i:s', strtotime($attendance_data->time))) > strtotime($this->time_in)) {
@@ -64,27 +64,24 @@ class ExecutiveController extends Controller
     }
     private function parseDataMachine1($date = null, $type = null)
     {
-        // $data = collect(DB::select('exec getTodaysAttendanceMachine1 "' . $date . '"'));
-        // dd($data[0]->where('type', 'Check-In'));
-
         if ($date == null) {
             $date = date('Y-m-d');
         }
-        $officers = AttendanceUserMachine1::where('status', 1)->get();
+        // Getting All Logs from Machine 1 
+        $log_data = collect(DB::select('exec getTodaysAttendanceMachine1 "' . $date . '"'));
+        $officers = collect(DB::select('exec getAllOfficers'));
         $attendance_data = array();
         foreach ($officers as $officer) {
-            // Getting All Logs from Machine 1 
-            $logs1 = AttendanceLogMachine1::select('user_id', 'type', 'time', \DB::raw("convert(varchar, time, 23) as mydate"), 'created_at')
-            ->orderBy('user_id', 'ASC')
-            ->get();
+
             // For Check-In
-            $CheckIn = $logs1
-            ->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-In')->last();
-           
+            $CheckIn = $log_data
+            ->where('user_id', $officer->attendance_id)->where('type', 'Check-In')->first();
             // For Checkout
-            $CheckOut = $logs1->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-Out')->last();
+            // dd($CheckIn,$officer);
+            $CheckOut = $log_data->where('user_id', $officer->attendance_id)->where('type', 'Check-Out')->first();
             if ($type == "absent") {
                 if (!$CheckIn) {
+                    
                     $data = $this->CheckStatus($CheckIn, 'Absent');
                     // For Remarks
                     $comments = AttendanceRemarksMachine1::where('user_id', $officer->id)->where('date', $date)->first();
@@ -131,17 +128,14 @@ class ExecutiveController extends Controller
         if ($date == null) {
             $date = date('Y-m-d');
         }
-        $officers = AttendanceUserMachine2::where('status', 1)->get();
+        $log_data = collect(DB::select('exec getTodaysAttendanceMachine2 "' . $date . '"'));
+        $officers = collect(DB::select('exec getAllOfficials'));
         $attendance_data = array();
         foreach ($officers as $officer) {
-            $logs2 = AttendanceLogMachine2::select('user_id', 'type', 'time', \DB::raw("convert(varchar, time, 23) as mydate"), 'created_at')
-                ->orderBy('user_id', 'ASC')
-                ->get();
-            $CheckIn = $logs2
-                ->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-In')->last();
+            $CheckIn = $log_data->where('user_id', $officer->attendance_id)->where('type', 'Check-In')->first();
             // For Checkout
-            $CheckOut = $logs2
-                ->where('mydate', $date)->where('user_id', $officer->attendance_id)->where('type', 'Check-Out')->last();
+            
+            $CheckOut = $log_data->where('user_id', $officer->attendance_id)->where('type', 'Check-Out')->first();
             if ($type == "absent") {
                 if (!$CheckIn) {
                     $data = $this->CheckStatus($CheckIn, 'Check-In');
