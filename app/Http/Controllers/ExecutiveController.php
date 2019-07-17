@@ -10,6 +10,7 @@ use App\AttendanceLogMachine2;
 use Illuminate\Database\Eloquent\Collection;
 use JavaScript;
 use DB;
+use Carbon;
 use App\AttendanceRemarksMachine1;
 use App\AttendanceRemarksMachine2;
 class ExecutiveController extends Controller
@@ -239,14 +240,38 @@ class ExecutiveController extends Controller
     }
     public function AttendanceGraph($name)
     {
-        
+        $start = new Carbon\Carbon('first day of this month');
+        $start = $start->isoFormat('Y-MM-DD');
+        $end = date('Y-m-d');
         $user=AttendanceUserMachine1::where('name',$name)->first();
         $user = $user ? $user : AttendanceUserMachine2::where('name', $name)->first();
-
+        if($user==null){
+            return redirect()->back();
+        }
+        $user_data = collect(DB::select('exec getUserMonthlyAttendance "'.$start.'","'.$end.'","'.$user->attendance_id.'","'.$user->machine_num.'"'));
+        
+        $Checkingraph_data = array();
+        $Checkoutgraph_data = array();
+        foreach($user_data as $data){
+            $month=date('m',strtotime($data->time));
+            $year=date('Y',strtotime($data->time));
+            $day=date('d',strtotime($data->time));
+            $time=(int)date('Hi',strtotime($data->time));
+            $type=$data->type;
+            if($type == "Check-In"){
+               array_push($Checkingraph_data,['month'=>$month,'year'=>$year,'day'=>$day,'time'=>$time,'status'=>$type]);
+            }
+            else if($type== "Check-Out")
+            {
+                array_push($Checkoutgraph_data,['month'=>$month,'year'=>$year,'day'=>$day,'time'=>$time,'status'=>$type]);
+            }
+        }      
         JavaScript::put([
             'user' => $user,
+            'CheckInData' =>$Checkingraph_data,
+            'CheckOutData' =>$Checkoutgraph_data,
         ]);
-        return view( 'attendance.AttendanceGraph');        
+        return view( 'attendance.AttendanceGraph',['user_data'=>$user_data]);        
     }
     public function getAttendanceByStatus(Request $request){
         
@@ -326,6 +351,7 @@ class ExecutiveController extends Controller
         //  dd($request->all());
         $user2 = AttendanceUserMachine2::where('name', $request->user)->first();
         if($user1){
+                
             $remarks= AttendanceRemarksMachine1::where('user_id',$user1->id)->where('date',$request->date)->first() ? AttendanceRemarksMachine1::where('user_id', $user1->id)->where('date', $request->date)->first() : new AttendanceRemarksMachine1();
             $remarks->user_id=$user1->id;
         }else if($user2){
@@ -334,9 +360,16 @@ class ExecutiveController extends Controller
         }else{
             return;
         }
-        $remarks->date=$request->date;
-        $remarks->comments=$request->comments;
-        $remarks->save();
+
+        if($request->comments=="del"){
+            $remarks->delete();
+        }
+        else{
+            $remarks->date=$request->date;
+            $remarks->comments=$request->comments;
+            $remarks->save();
+        }
+
         return redirect()->back();        
      }
 }
