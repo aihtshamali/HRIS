@@ -11,23 +11,29 @@ DGME | Daily Attendance
 <table style="width:100%;">
     <thead>
         <tr>
-            <th colspan="4">First Name</th>
+            <th colspan="4" style="text-transform:capitalize">{{$user_data[0]->name}}</th>
         </tr>
         <tr class"">
             <th>Sr #.</th>
             <th>Attendance Status</th>
-            <th>Incoming Status</th>
-            <th>Outgoing Status</th>
+            <th>Date</th>
+            <th>Time</th>
         </tr>
     </thead>
+    @php
+        $i=1
+    @endphp
     <tbody id="example">
-        <tr>
-            <th>1.</th>
-            <th>yes</th>
-            <th>09:00</th>
-            <th>05:00</th>
-        </tr>
-        <tr>
+        @foreach ($user_data as $data)
+            
+            <tr>
+                <th>{{$i++}}.</th>
+                <th>{{$data->type}}</th>
+                <th>{{date('Y-m-d',strtotime($data->time))}}</th>
+                <th>{{date('h:i:s a',strtotime($data->time))}}</th>
+            </tr>
+        @endforeach
+        {{-- <tr>
             <th>2.</th>
             <th>No</th>
             <th>00:00</th>
@@ -38,7 +44,7 @@ DGME | Daily Attendance
             <th>yes</th>
             <th>09:00</th>
             <th>05:00</th>
-        </tr>
+        </tr> --}}
     </tbody>
 </table>
 @endsection
@@ -46,9 +52,18 @@ DGME | Daily Attendance
 <script src="{{ asset('js/canvas.js')}}"></script>
 <script>
     window.onload = function() {
-        var today = new Date();
-        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
+        // var today = new Date();
+        // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var CheckInGraphData=[];
+        CheckInData.forEach(element => {
+            CheckInGraphData.push({x: new Date(element.year,element.month-1,element.day),y:element.time})
+        });
+        var CheckOutGraphData=[];
+        CheckOutData.forEach(element => {
+            CheckOutGraphData.push({x: new Date(element.year,element.month-1,element.day),y:element.time})
+        });
+        console.log(CheckInGraphData);
+                        
         var chart = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,
             theme: "light2",
@@ -65,7 +80,7 @@ DGME | Daily Attendance
                 // prefix: "$",
                 // labelFormatter: addSymbols
                 title: "Time",
-                valueFormatString: "0:00"
+                valueFormatString: "00:00"
                 // minimum: 800,
                 // maximum: 1700,
             },
@@ -76,160 +91,52 @@ DGME | Daily Attendance
                 cursor: "pointer",
                 itemclick: toggleDataSeries
             },
-            data: [{
-                    type: "column",
-                    name: "Public Holiday",
-                    showInLegend: true,
-                    xValueFormatString: "YYYY MM DD",
-                    yValueFormatString: "##:##",
-                    dataPoints: [{
-                            x: new Date(2019, 03, 6),
-                            y: 1800
-                        },
-                        {
-                            x: new Date(2019, 03, 7),
-                            y: 1800
-                        }, {
-                            x: new Date(2019, 03, 13),
-                            y: 1800
-                        },
-                        {
-                            x: new Date(2019, 03, 14),
-                            y: 1800
-                        }, {
-                            x: new Date(2019, 03, 20),
-                            y: 1800
-                        },
-                        {
-                            x: new Date(2019, 03, 21),
-                            y: 1800
-                        },
-                        {
-                            x: new Date(2019, 03, 27),
-                            y: 1800
-                        },
-                        {
-                            x: new Date(2019, 03, 28),
-                            y: 1800
-                        }
-                    ]
-                },
+            data: [
+                // {
+                //     type: "column",
+                //     name: "Public Holiday",
+                //     showInLegend: true,
+                //     xValueFormatString: "YYYY MM DD",
+                //     yValueFormatString: "##:##",
+                //     dataPoints: [
+                //         {
+                //             x: new Date(2019, 06, 06),
+                //             y: 1200
+                //         },
+                //         {
+                //             x: new Date(2019, 06, 07),
+                //             y: 1400
+                //         }, {
+                //             x: new Date(2019, 06, 13),
+                //             y: 1600
+                //         },
+                //         {
+                //             x: new Date(2019, 06, 14),
+                //             y: 1800
+                //         }, {
+                //             x: new Date(2019, 06, 20),
+                //             y: 2000
+                //         },
+                //         {
+                //             x: new Date(2019, 06, 21),
+                //             y: 1200
+                //         },
+                //         {
+                //             x: new Date(2019, 06, 27),
+                //             y: 1200
+                //         },
+                //         {
+                //             x: new Date(2019, 06, 28),
+                //             y: 1200
+                //         }
+                //     ]
+                // },
                 {
                     type: "line",
                     name: "Incoming Time",
                     showInLegend: true,
                     yValueFormatString: "##:##",
-                    dataPoints: [{
-                            x: new Date(2019, 03, 1),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 900
-                        },
-                        {
-                            x: new Date(2019, 03, 2),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 920
-                        },
-                        {
-                            x: new Date(2019, 03, 3),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 1000
-                        },
-                        {
-                            x: new Date(2019, 03, 4),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 1200
-                        },
-                        {
-                            x: new Date(2019, 03, 5),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 1100
-                        },
-                        {
-                            x: new Date(2019, 03, 8),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 900
-                        },
-                        {
-                            x: new Date(2019, 03, 9),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 0
-                        },
-                        {
-                            x: new Date(2019, 03, 10),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 900
-                        },
-                        {
-                            x: new Date(2019, 03, 11),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 900
-                        },
-                        {
-                            x: new Date(2019, 03, 12),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 900
-                        },
-                        {
-                            x: new Date(2019, 03, 15),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 900
-                        },
-                        {
-                            x: new Date(2019, 03, 16),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 900
-                        },
-                        {
-                            x: new Date(2019, 03, 17),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 900
-                        },
-                        {
-                            x: new Date(2019, 03, 18),
-                            // y: new Date().getHours()+''+new Date().getMinutes()+1
-                            y: 900
-                        },
-                        {
-                            x: new Date(2019, 03, 19),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 900
-                        },
-                        {
-                            x: new Date(2019, 03, 22),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 900
-                        },
-                        {
-                            x: new Date(2019, 03, 23),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 900
-                        },
-                        {
-                            x: new Date(2019, 03, 24),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 900
-                        },
-                        {
-                            x: new Date(2019, 03, 25),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 900
-                        },
-                        {
-                            x: new Date(2019, 03, 26),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 900
-                        },
-                        {
-                            x: new Date(2019, 03, 29),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 900
-                        },
-                        {
-                            x: new Date(2019, 03, 30),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 900
-                        }
-                    ]
+                    dataPoints: CheckInGraphData
                 },
                 {
                     type: "line",
@@ -238,120 +145,11 @@ DGME | Daily Attendance
                     markerBorderThickness: 2,
                     showInLegend: true,
                     yValueFormatString: "##:##",
-                    dataPoints: [{
-                            x: new Date(2019, 03, 1),
-                            // y: new Date().getHours()+''+new Date().getMinutes()+1
-                            y: 1700
-                        },
-                        {
-                            x: new Date(2019, 03, 2),
-                            // y: new Date().getHours()+''+new Date().getMinutes()+1
-                            y: 1600
-                        },
-                        {
-                            x: new Date(2019, 03, 3),
-                            // y: new Date().getHours()+''+new Date().getMinutes()+1
-                            y: 1700
-                        },
-                        {
-                            x: new Date(2019, 03, 4),
-                            // y: new Date().getHours()+''+new Date().getMinutes()+1
-                            y: 1700
-                        },
-                        {
-                            x: new Date(2019, 03, 5),
-                            // y: new Date().getHours()+''+new Date().getMinutes()+1
-                            y: 1700
-                        },
-                        {
-                            x: new Date(2019, 03, 8),
-                            // y: new Date().getHours()+''+new Date().getMinutes()+1
-                            y: 1400
-                        },
-                        {
-                            x: new Date(2019, 03, 9),
-                            // y: new Date().getHours()+''+new Date().getMinutes()+1
-                            y: 1700
-                        },
-                        {
-                            x: new Date(2019, 03, 10),
-                            // y: new Date().getHours()+''+new Date().getMinutes()+1
-                            y: 1200
-                        },
-                        {
-                            x: new Date(2019, 03, 11),
-                            // y: new Date().getHours()+''+new Date().getMinutes()+1
-                            y: 1700
-                        },
-                        {
-                            x: new Date(2019, 03, 12),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 1600
-                        },
-                        {
-                            x: new Date(2019, 03, 15),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 1600
-                        },
-                        {
-                            x: new Date(2019, 03, 16),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 1600
-                        },
-                        {
-                            x: new Date(2019, 03, 17),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 1600
-                        },
-                        {
-                            x: new Date(2019, 03, 18),
-                            // y: new Date().getHours()+''+new Date().getMinutes()+1
-                            y: 1700
-                        },
-                        {
-                            x: new Date(2019, 03, 19),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 1600
-                        },
-                        {
-                            x: new Date(2019, 03, 22),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 1600
-                        },
-                        {
-                            x: new Date(2019, 03, 23),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 1600
-                        },
-                        {
-                            x: new Date(2019, 03, 24),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 1600
-                        },
-                        {
-                            x: new Date(2019, 03, 25),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 1600
-                        },
-                        {
-                            x: new Date(2019, 03, 26),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 1600
-                        },
-                        {
-                            x: new Date(2019, 03, 29),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 1600
-                        },
-                        {
-                            x: new Date(2019, 03, 30),
-                            // y: new Date().getHours()+''+new Date().getMinutes()
-                            y: 1600
-                        }
-                    ]
+                    dataPoints: CheckOutGraphData
                 }
             ]
         });
+        console.log(chart);
         chart.render();
 
         function addSymbols(e) {
