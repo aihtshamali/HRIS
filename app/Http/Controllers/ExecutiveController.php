@@ -135,6 +135,7 @@ class ExecutiveController extends Controller
             $date = date('Y-m-d');
         }
         $log_data = collect(DB::select('exec getTodaysAttendanceMachine2 "' . $date . '"'));
+       
         $officers = collect(DB::select('exec getAllOfficials'));
         $attendance_data = array();
         $logs2 = AttendanceLogMachine2::select('user_id', 'type', 'time', \DB::raw("convert(varchar, time, 23) as mydate"), 'created_at')
@@ -185,6 +186,120 @@ class ExecutiveController extends Controller
                 $attendance_data[$officer->name]['Check-In'] = $data;
                 $attendance_data[$officer->name]['Check-Out'] = $this->CheckStatus($CheckOut,'Check-Out');
             }
+        }
+        return $attendance_data;
+    }
+    function getDatesFromRange($Date1, $Date2)
+    {
+        // Declare an empty array 
+        $array = array();
+
+        // Use strtotime function 
+        $Variable1 = strtotime($Date1);
+        $Variable2 = strtotime($Date2);
+
+        // Use for loop to store dates into array 
+        // 86400 sec = 24 hrs = 60*60*24 = 1 day 
+        for (
+            $currentDate = $Variable1;
+            $currentDate <= $Variable2;
+            $currentDate += (86400)
+        ) {
+
+            $Store = date('Y-m-d', $currentDate);
+            $array[] = $Store;
+        } 
+        return $array;
+    }
+    private function parseMonthlyMachine1($date = null, $officerID)
+    {
+        if ($date == null) {
+            $date = date('Y-m-d');
+        }
+        // Getting All Logs from Machine 1
+        $allDates = $this->getDatesFromRange(date('Y-m-01'),date('Y-m-d'));
+        $log_data = collect(DB::select('exec getOfficersMachine1 "' . $date . '",'.$officerID));
+        $attendance_data = array();
+        // dump($log_data);
+        // Getting All Logs from Machine 1
+        foreach($allDates as $day){
+            $data_days = $log_data->where('current_day', $day);
+            // dump($data_days);
+            foreach($data_days as $data_day){
+            if($data_day){
+                if($data_day->type == 'Check-In'){
+                    $data_day->CheckIn = $data_day->time;
+                    $attendance_data[$day]['CheckIn']=$data_day;
+                    
+                }
+                else{
+                    $data_day->CheckIn = '-';   
+                    $attendance_data[$day]['CheckIn']=$data_day;
+                }
+                if($data_day->type == 'Check-Out')
+                {
+                    $data_day->CheckOut = $data_day->time;
+                    $attendance_data[$day]['CheckOut']=$data_day;
+                }
+                else{
+                    $data_day->CheckOut = '-';
+                    $attendance_data[$day]['CheckOut']=$data_day;
+                }
+                
+            } 
+        }
+        if(!count($data_days)){
+            $status = collect();
+            $status->type = "Absent";
+            $attendance_data[$day]=$status;    
+
+        }
+        }
+        return $attendance_data;
+    }
+    private function parseMonthlyMachine2($date = null, $officerID)
+    {
+        if ($date == null) {
+            $date = date('Y-m-d');
+        }
+        // Getting All Logs from Machine 1
+        $allDates = $this->getDatesFromRange(date('Y-m-01'),date('Y-m-d'));
+        $log_data = collect(DB::select('exec getOfficersMachine2 "' . $date . '",'.$officerID));
+        $attendance_data = array();
+        // dump($log_data);
+        // Getting All Logs from Machine 1
+        foreach($allDates as $day){
+            $data_days = $log_data->where('current_day', $day);
+            // dump($data_days);
+            foreach($data_days as $data_day){
+            if($data_day){
+                if($data_day->type == 'Check-In'){
+                    $data_day->CheckIn = $data_day->time;
+                    $attendance_data[$day]['CheckIn']=$data_day;
+                    
+                }
+                else{
+                    $data_day->CheckIn = '-';   
+                    $attendance_data[$day]['CheckIn']=$data_day;
+                }
+                if($data_day->type == 'Check-Out')
+                {
+                    $data_day->CheckOut = $data_day->time;
+                    $attendance_data[$day]['CheckOut']=$data_day;
+                }
+                else{
+                    $data_day->CheckOut = '-';
+                    $attendance_data[$day]['CheckOut']=$data_day;
+                }
+                
+            } 
+        }
+        if(!count($data_days)){
+            $status = collect();
+            $status->type = "Absent";
+            $attendance_data[$day]=$status;    
+
+        }
         }
         return $attendance_data;
     }
@@ -253,11 +368,18 @@ class ExecutiveController extends Controller
         $end = date('Y-m-d');
         $user=AttendanceUserMachine1::where('name',$name)->first();
         $user = $user ? $user : AttendanceUserMachine2::where('name', $name)->first();
+        $daily_data = collect();
+        if ($user instanceof AttendanceUserMachine1) { 
+            $daily_data = $this->parseMonthlyMachine1(date('Y-m-01'),$user->attendance_id);
+        }else {
+            
+            $daily_data = $this->parseMonthlyMachine2(date('Y-m-01'),$user->attendance_id);
+        }
         if($user==null){
             return redirect()->back();
         }
         $user_data = collect(DB::select('exec getUserMonthlyAttendance "'.$start.'","'.$end.'","'.$user->attendance_id.'","'.$user->machine_num.'"'));
-
+        // dd($user_data);
         $Checkingraph_data = array();
         $Checkoutgraph_data = array();
         foreach($user_data as $data){
@@ -279,7 +401,8 @@ class ExecutiveController extends Controller
             'CheckInData' =>$Checkingraph_data,
             'CheckOutData' =>$Checkoutgraph_data,
         ]);
-        return view( 'attendance.AttendanceGraph',['user_data'=>$user_data]);
+        // dd($Checkingraph_data);
+        return view('attendance.AttendanceGraph',['user_data'=>$user_data,'daily_data'=>$daily_data]);
     }
     public function getAttendanceByStatus(Request $request){
 

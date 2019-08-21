@@ -22,7 +22,30 @@
 
 
     @yield('styleTags')
-    <style media="screen">
+    <style>
+        @media print {
+            .pcoded[theme-layout="vertical"] .pcoded-header[pcoded-header-position="fixed"] {
+                display: none !important;
+            }
+
+            .pcoded[theme-layout="vertical"][vertical-nav-type="expanded"] .pcoded-header .pcoded-left-header,
+            .pcoded[theme-layout="vertical"][vertical-nav-type="expanded"] .pcoded-navbar {
+                display: none !important;
+            }
+
+            #chartContainer {
+                display: none;
+            }
+
+            .dataTables_length,
+            #simpletable_filter{
+                display: none !important;
+            }
+            .nosiplayiprint {
+                display: none !important;
+            }
+        }
+
         .backforbtn {
             width: 5% !important;
             padding-top: 0.3% !important;
@@ -416,6 +439,10 @@
 
     function goforward() {
         window.history.forward()
+    }
+
+    function PrintIt() {
+        window.print();
     }
 </script>
 
