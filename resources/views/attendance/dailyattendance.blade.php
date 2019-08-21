@@ -12,13 +12,19 @@ DGME | Daily Attendance
     <div class="row">
         <form action="" method="get" class="col-md-4">
             {{ csrf_field() }}
-            <input type="date" class="form-control col-md-6 float-left" name="date">
-            <input type="submit" class="btn btn-sm btn-success offset-md-1" style="margin-top: 0.5%;" value="Search">
+            <input type="date" value="{{isset($_GET['date']) ? $_GET['date'] : date('Y-m-d')}}" class="form-control col-md-6 float-left" name="date">
+            <input type="submit" class="btn btn-sm btn-success offset-md-1 nosiplayiprint" style="margin-top: 0.5%;" value="Search">
         </form>
         <!-- <input class="form-control col-md-5" id="search" type="text" placeholder="Search Here..."> -->
     </div>
+    <div class="col-md-12" style=" position:fixed;z-index: 9999;">
+        <div class="col-md-1 float-right" style="margin: -8% 3% 0% 0%;">
+            <button class="btn float-right nosiplayiprint" onclick="PrintIt()" style="color:#fff;background: #404e67 !important;padding: 10px 6px !important;">Print</button>
+        </div>
+    </div>
+
     <div class="row">
-        <table id="simpletable" class="table table-striped table-bordered nowrap" style="width:100%">
+        <table id="simpletable" class="table table-striped table-bordered nowrap" style="width:100%" data-page-length='500'>
             <thead>
                 <tr class"">
                     <th>Sr #.</th>
@@ -41,43 +47,44 @@ DGME | Daily Attendance
                     <td><span class="in">{{ isset($value['Check-In']->time) ? date('h:i:s A',strtotime($value['Check-In']->time)) : '-'}}</span></td>
                     <td>
                         @if (isset($value['Check-In']->comments->comments) && $value['Check-In']->comments->date==$date)
-                            <span class="incomingstatus"> {{$value['Check-In']->comments->comments}} </span>
-                        @else                
-                            <span class="incomingstatus">{{isset($value['Check-In']->time) ? $value['Check-In']->status : isset($value['Check-In']->status) ? $value['Check-In']->status : '-'}}</span>
+                        <span class="incomingstatus"> {{$value['Check-In']->comments->comments}} </span>
+                        @else
+                        <span class="incomingstatus">{{isset($value['Check-In']->time) ? $value['Check-In']->status : isset($value['Check-In']->status) ? $value['Check-In']->status : '-'}}</span>
                         @endif
                     </td>
                     <td>
-                            <span class="out">{{isset($value['Check-Out']->time) ? date('h:i:s A',strtotime($value['Check-Out']->time)) : '-'}}</span>
+                        <span class="out">{{isset($value['Check-Out']->time) ? date('h:i:s A',strtotime($value['Check-Out']->time)) : '-'}}</span>
                     </td>
                     <td>
 
                         @if (isset($value['Check-In']->comments->comments) && $value['Check-In']->comments->date==$date)
-                            <span class="outgoingstatus"> {{$value['Check-In']->comments->comments}} </span>
+                        <span class="outgoingstatus"> {{$value['Check-In']->comments->comments}} </span>
                         @else
-                            <span class="outgoingstatus">{{isset($value['Check-Out']->time) ? $value['Check-Out']->status :isset($value['Check-Out']->status) ? $value['Check-Out']->status : '-'}}
-                            </span>
+                        <span class="outgoingstatus">{{isset($value['Check-Out']->time) ? $value['Check-Out']->status :isset($value['Check-Out']->status) ? $value['Check-Out']->status : '-'}}
+                        </span>
                         @endif
                     </td>
-                    <td><form action="{{route('attendance_remarks')}}">
-                        @csrf
-                        <input type="hidden" name="date" value="{{isset($_GET['date']) ? $_GET['date'] : date('Y-m-d')}} ">
-                        <input type="hidden" name="user" value="{{$key}}">
-                        <p><select name="comments" id="" required>
-                            <option value=""></option>
-                            <option value="On-Visit">On-Visit</option>
-                            <option value="On-Leave">On-Leave</option>
-                            <option value="On-Half Day">On-Half Day</option>    
-                            <option value="On-Short Leave">On-Short Leave</option>    
-                            <option value="On-Mat Leave">On-Mat Leave</option>    
-                            <option value="On-Pat Leave">On-Pat Leave</option>    
-                            <option value="Earned Leave">Earned Leave</option>    
-                            @if (isset($value['Check-In']->comments->comments) && $value['Check-In']->comments->date==$date)
-                            <option value="{{$value['Check-In']->comments->comments}}" selected>{{$value['Check-In']->comments->comments}}</option>
-                            <option value="del">Delete Leave</option>
-                            @endif
-                        </select></p>
-                        <span><button type="submit">Save</button></span>
-                    </form></td>
+                    <td>
+                        <form action="{{route('attendance_remarks')}}">
+                            @csrf
+                            <input type="hidden" name="date" value="{{isset($_GET['date']) ? $_GET['date'] : date('Y-m-d')}} ">
+                            <input type="hidden" name="user" value="{{$key}}">
+                            <select name="comments" id="" style="padding:3%;" required>
+                                <option value=""></option>
+                                <option value="On-Visit">On-Visit</option>
+                                <option value="On-Leave">On-Leave</option>
+                                <option value="On-Half Day">On-Half Day</option>
+                                <option value="On-Short Leave">On-Short Leave</option>
+                                <option value="On-Mat Leave">On-Mat Leave</option>
+                                <option value="On-Pat Leave">On-Pat Leave</option>
+                                <option value="Earned Leave">Earned Leave</option>
+                                @if (isset($value['Check-In']->comments->comments) && $value['Check-In']->comments->date==$date)
+                                <option value="{{$value['Check-In']->comments->comments}}" selected>{{$value['Check-In']->comments->comments}}</option>
+                                <option value="del">Delete Leave</option>
+                                @endif
+                            </select><input type="submit" class="btn btn-primary nosiplayiprint" value="Save" style="margin:  0% 4%;" />
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -94,6 +101,7 @@ DGME | Daily Attendance
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
+
     });
 </script>
 @endsection
