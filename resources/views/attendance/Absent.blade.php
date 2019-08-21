@@ -78,12 +78,17 @@ DGME | Absent
         <form action="" method="get" class="col-md-4">
             {{ csrf_field() }}
             <input type="date" class="form-control col-md-6 float-left" name="date">
-            <input type="submit" class="btn btn-sm btn-success offset-md-1" style="margin-top: 0.5%;" value="Search">
+            <input type="submit" class="btn btn-sm btn-success offset-md-1 nosiplayiprint" style="margin-top: 0.5%;" value="Search">
         </form>
         <!-- <input class="form-control col-md-5" id="search" type="text" placeholder="Search Here..."> -->
     </div>
+    <div class="col-md-12" style=" position:fixed;z-index: 9999;">
+        <div class="col-md-1 float-right" style="margin: -8% 3% 0% 0%;">
+            <button class="btn float-right nosiplayiprint" onclick="PrintIt()" style="color:#fff;background: #404e67 !important;padding: 10px 6px !important;">Print</button>
+        </div>
+    </div>
     <div class="row">
-        <table id="simpletable" class="table table-striped table-bordered nowrap" style="width:100%">
+        <table id="simpletable" class="table table-striped table-bordered nowrap" style="width:100%" data-page-length='500'>
             <thead>
                 <tr class="">
                     <th>Sr #.</th>
@@ -124,4 +129,4 @@ DGME | Absent
         });
     });
 </script>
-@endsection 
+@endsection

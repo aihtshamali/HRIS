@@ -8,43 +8,44 @@ DGME | Daily Attendance
 @endsection
 @section('content')
 <div id="chartContainer" style="height: 500px; width: 100%;"></div>
-<table style="width:100%;">
+<div class="col-md-12">
+    <div class="col-md-1 float-right">
+        <button class="btn float-right nosiplayiprint" onclick="PrintIt()" style="color:#fff;background: #404e67 !important;margin: 12% -41% 12% 0%;">Print</button>
+    </div>
+</div>
+<table style="width:100%;" data-page-length='500'>
     <thead>
         <tr>
             <th colspan="4" style="text-transform:capitalize">{{$user_data[0]->name}}</th>
         </tr>
         <tr class"">
             <th>Sr #.</th>
-            <th>Attendance Status</th>
             <th>Date</th>
-            <th>Time</th>
+            <th>Incoming time</th>
+            <th>Outgoing time</th>
         </tr>
     </thead>
     @php
-        $i=1
+    $i=1
     @endphp
     <tbody id="example">
-        @foreach ($user_data as $data)
-            
-            <tr>
-                <th>{{$i++}}.</th>
-                <th>{{$data->type}}</th>
-                <th>{{date('Y-m-d',strtotime($data->time))}}</th>
-                <th>{{date('h:i:s a',strtotime($data->time))}}</th>
-            </tr>
-        @endforeach
-        {{-- <tr>
-            <th>2.</th>
-            <th>No</th>
-            <th>00:00</th>
-            <th>00:00</th>
-        </tr>
+
+        @foreach ($daily_data as $key=>$data)
         <tr>
-            <th>3.</th>
-            <th>yes</th>
-            <th>09:00</th>
-            <th>05:00</th>
-        </tr> --}}
+            <th>{{$i++}}.</th>
+            <th>{{date('d/m/y',strtotime($key))}}</th>
+            @if(isset($data->type))
+            <th>{{$data->type}}</th>
+            @else
+            <th>{{date('h:i:s A',strtotime($data['CheckIn']->time))}}</th>
+            @endif
+            @if(isset($data->type))
+            <th>{{$data->type}}</th>
+            @else
+            <th>{{date('h:i:s a',strtotime($data['CheckOut']->time))}}</th>
+            @endif
+        </tr>
+        @endforeach
     </tbody>
 </table>
 @endsection
@@ -54,16 +55,22 @@ DGME | Daily Attendance
     window.onload = function() {
         // var today = new Date();
         // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        var CheckInGraphData=[];
+        var CheckInGraphData = [];
         CheckInData.forEach(element => {
-            CheckInGraphData.push({x: new Date(element.year,element.month-1,element.day),y:element.time})
+            CheckInGraphData.push({
+                x: new Date(element.year, element.month - 1, element.day),
+                y: element.time
+            })
         });
-        var CheckOutGraphData=[];
+        var CheckOutGraphData = [];
         CheckOutData.forEach(element => {
-            CheckOutGraphData.push({x: new Date(element.year,element.month-1,element.day),y:element.time})
+            CheckOutGraphData.push({
+                x: new Date(element.year, element.month - 1, element.day),
+                y: element.time
+            })
         });
         console.log(CheckInGraphData);
-                        
+
         var chart = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,
             theme: "light2",
