@@ -36,13 +36,17 @@ DGME | Daily Attendance
             <th>{{date('d/m/y',strtotime($key))}}</th>
             @if(isset($data->type))
             <th>{{$data->type}}</th>
+            @elseif(isset($data['CheckIn']))
+                <th>{{date('h:i:s A',strtotime($data['CheckIn']['time']))}}</th>
             @else
-            <th>{{date('h:i:s A',strtotime($data['CheckIn']->time))}}</th>
+                <th> - </th>
             @endif
             @if(isset($data->type))
-            <th>{{$data->type}}</th>
+                <th>{{$data->type}}</th>
+            @elseif(isset($data['CheckOut']))
+                <th>{{date('h:i:s A',strtotime($data['CheckOut']['time']))}}</th>
             @else
-            <th>{{date('h:i:s a',strtotime($data['CheckOut']->time))}}</th>
+                <th> - </th>
             @endif
         </tr>
         @endforeach
