@@ -223,36 +223,27 @@ class ExecutiveController extends Controller
         // Getting All Logs from Machine 1
         foreach($allDates as $day){
             $data_days = $log_data->where('current_day', $day);
-            // dump($data_days);
             foreach($data_days as $data_day){
-            if($data_day){
-                if($data_day->type == 'Check-In'){
-                    $data_day->CheckIn = $data_day->time;
-                    $attendance_data[$day]['CheckIn']=$data_day;
+                if($data_day){
+                    if($data_day->type == 'Check-In'){
+                        $temp = array("name" => $data_day->name, "time" => $data_day->time,"type" => $data_day->type); 
+                        $attendance_data[$day]['CheckIn']=$temp;
                     
-                }
-                else{
-                    $data_day->CheckIn = '-';   
-                    $attendance_data[$day]['CheckIn']=$data_day;
-                }
-                if($data_day->type == 'Check-Out')
-                {
-                    $data_day->CheckOut = $data_day->time;
-                    $attendance_data[$day]['CheckOut']=$data_day;
-                }
-                else{
-                    $data_day->CheckOut = '-';
-                    $attendance_data[$day]['CheckOut']=$data_day;
-                }
+                    }
+                    else if($data_day->type == 'Check-Out')
+                    {
+                        $temp = array("name" => $data_day->name, "time" => $data_day->time,"type" => $data_day->type); 
+                        $attendance_data[$day]['CheckOut']=$temp;
+                    }
+                    
+                } 
+            }
+            if(!count($data_days)){
+                $status = collect();
+                $status->type = "Absent";
+                $attendance_data[$day]=$status;    
                 
-            } 
-        }
-        if(!count($data_days)){
-            $status = collect();
-            $status->type = "Absent";
-            $attendance_data[$day]=$status;    
-
-        }
+            }
         }
         return $attendance_data;
     }
@@ -273,22 +264,14 @@ class ExecutiveController extends Controller
             foreach($data_days as $data_day){
             if($data_day){
                 if($data_day->type == 'Check-In'){
-                    $data_day->CheckIn = $data_day->time;
-                    $attendance_data[$day]['CheckIn']=$data_day;
+                    $temp = array("name" => $data_day->name, "time" => $data_day->time, "type" => $data_day->type); 
+                    $attendance_data[$day]['CheckIn']=$temp;
                     
                 }
-                else{
-                    $data_day->CheckIn = '-';   
-                    $attendance_data[$day]['CheckIn']=$data_day;
-                }
-                if($data_day->type == 'Check-Out')
+                else if($data_day->type == 'Check-Out')
                 {
-                    $data_day->CheckOut = $data_day->time;
-                    $attendance_data[$day]['CheckOut']=$data_day;
-                }
-                else{
-                    $data_day->CheckOut = '-';
-                    $attendance_data[$day]['CheckOut']=$data_day;
+                    $temp = array("name" => $data_day->name, "time" => $data_day->time, "type" => $data_day->type); 
+                    $attendance_data[$day]['CheckOut']=$temp;
                 }
                 
             } 
@@ -378,7 +361,6 @@ class ExecutiveController extends Controller
             return redirect()->back();
         }
         $user_data = collect(DB::select('exec getUserMonthlyAttendance "'.$start.'","'.$end.'","'.$user->attendance_id.'","'.$user->machine_num.'"'));
-        // dd($user_data);
         $Checkingraph_data = array();
         $Checkoutgraph_data = array();
         foreach($user_data as $data){
