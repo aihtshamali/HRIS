@@ -78,6 +78,7 @@ DGME | Daily Attendance
                                 <option value="On-Mat Leave">On-Mat Leave</option>
                                 <option value="On-Pat Leave">On-Pat Leave</option>
                                 <option value="Earned Leave">Earned Leave</option>
+                                <option value="Attending Meeting">Attending Meeting</option>
                                 @if (isset($value['Check-In']->comments->comments) && $value['Check-In']->comments->date==$date)
                                 <option value="{{$value['Check-In']->comments->comments}}" selected>{{$value['Check-In']->comments->comments}}</option>
                                 <option value="del">Delete Leave</option>
