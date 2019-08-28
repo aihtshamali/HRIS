@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('_monitoring/css/css/buttons.dataTables.min.css')}}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('_monitoring/css/css/dataTables.bootstrap4.min.css')}}" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 
     @yield('styleTags')
@@ -38,9 +39,10 @@
             }
 
             .dataTables_length,
-            #simpletable_filter{
+            #simpletable_filter {
                 display: none !important;
             }
+
             .nosiplayiprint {
                 display: none !important;
             }
@@ -421,9 +423,17 @@
 <script src="{{asset('_monitoring/css/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
 <script src="{{asset('_monitoring/css/pages/data-table/js/data-table-custom.js')}}"></script>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 @yield("js_scripts")
 <script>
+    $(function() {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'left'
+        }, function(start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+    });
     window.dataLayer = window.dataLayer || [];
 
     function gtag() {

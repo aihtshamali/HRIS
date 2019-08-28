@@ -12,7 +12,7 @@ DGME | Daily Attendance
     <div class="row">
         <form action="" method="get" class="col-md-4">
             {{ csrf_field() }}
-            <input type="date" value="{{isset($_GET['date']) ? $_GET['date'] : date('Y-m-d')}}" class="form-control col-md-6 float-left" name="date">
+            <input type="text" name="daterange" value="{{isset($_GET['date']) ? $_GET['date'] : date('Y-m-d')}}" class="form-control col-md-6 float-left" name="date">
             <input type="submit" class="btn btn-sm btn-success offset-md-1 nosiplayiprint" style="margin-top: 0.5%;" value="Search">
         </form>
         <!-- <input class="form-control col-md-5" id="search" type="text" placeholder="Search Here..."> -->
