@@ -37,7 +37,7 @@ class ExecutiveController extends Controller
         } else {
             $date = $request->date;
         }
-        $user_data = array();
+        $user_data = array([]);
         if ($this->parseDataMachine1($date))
             $user_data[0]=$this->parseDataMachine1($date);
         if ($this->parseDataMachine2($date))
@@ -295,7 +295,7 @@ class ExecutiveController extends Controller
         } else {
             $date = $request->date;
         }
-        $user_data = array();
+        $user_data = array([]);
         if ($this->parseDataMachine1($date, 'present'))
             $user_data[0]=$this->parseDataMachine1($date, 'present');
         if ($this->parseDataMachine2($date, 'present'))
@@ -311,7 +311,7 @@ class ExecutiveController extends Controller
         } else {
             $date = $request->date;
         }
-        $user_data = array();
+        $user_data = array([]);
         if ($this->parseDataMachine1($date, 'absent'))
             $user_data[0]=$this->parseDataMachine1($date, 'absent');
         if ($this->parseDataMachine2($date, 'absent'))
@@ -326,7 +326,7 @@ class ExecutiveController extends Controller
         } else {
             $date = $request->date;
         }
-        $user_data = array();
+        $user_data = array([]);
         if ($this->parseDataMachine1($date, 'late comers'))
             $user_data[0] = $this->parseDataMachine1($date, 'late comers');
         if ($this->parseDataMachine2($date, 'late comers'))
@@ -390,7 +390,7 @@ class ExecutiveController extends Controller
         $date = date('Y-m-d');
         $machine1 = $this->parseDataMachine1($date,$request->status);
         $machine2 = $this->parseDataMachine2($date,$request->status);
-        $user_data =array();
+        $user_data =array([]);
         if (count($machine1))
             $user_data[0] = $machine1;
         if (count($machine2))
