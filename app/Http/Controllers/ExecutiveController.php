@@ -383,7 +383,7 @@ class ExecutiveController extends Controller
             'CheckOutData' =>$Checkoutgraph_data,
         ]);
         // dd($Checkingraph_data);
-        return view('attendance.AttendanceGraph',['user_data'=>$user_data,'daily_data'=>$daily_data]);
+        return view('attendance.AttendanceGraph',['user_data'=>$user_data,'name'=>$name,'daily_data'=>$daily_data]);
     }
     public function getAttendanceByStatus(Request $request){
 

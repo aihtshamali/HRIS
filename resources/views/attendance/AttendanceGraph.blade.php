@@ -16,7 +16,7 @@ DGME | Daily Attendance
 <table style="width:100%;" data-page-length='500'>
     <thead>
         <tr>
-            <th colspan="4" style="text-transform:capitalize">{{$user_data[0]->name}}</th>
+            <th colspan="4" style="text-transform:capitalize">{{$name}}</th>
         </tr>
         <tr class"">
             <th>Sr #.</th>
