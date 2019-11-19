@@ -295,13 +295,12 @@ class ExecutiveController extends Controller
         } else {
             $date = $request->date;
         }
-        $user_data = array([]);
+        $user_data = array();
         if ($this->parseDataMachine1($date, 'present'))
-            $user_data[0]=$this->parseDataMachine1($date, 'present');
-        if ($this->parseDataMachine2($date, 'present'))
+            array_push($user_data,$this->parseDataMachine1($date, 'present'));
+        if (!empty($this->parseDataMachine2($date, 'present')))
             $user_data=array_merge($user_data[0],$this->parseDataMachine2($date, 'present'));
-        $total_count= count($user_data);
-        // dd($total_count);
+        // dd($user_data);
         return view('attendance.present', compact('user_data'));
     }
     public function Absent(Request $request)
@@ -311,10 +310,10 @@ class ExecutiveController extends Controller
         } else {
             $date = $request->date;
         }
-        $user_data = array([]);
+        $user_data = array();
         if ($this->parseDataMachine1($date, 'absent'))
-            $user_data[0]=$this->parseDataMachine1($date, 'absent');
-        if ($this->parseDataMachine2($date, 'absent'))
+            array_push($user_data,$this->parseDataMachine1($date, 'absent'));
+        if (!empty($this->parseDataMachine2($date, 'absent')))
             $user_data=array_merge($user_data[0],$this->parseDataMachine2($date, 'absent'));
         return view('attendance.Absent', compact('user_data'));
     }
@@ -328,8 +327,8 @@ class ExecutiveController extends Controller
         }
         $user_data = array([]);
         if ($this->parseDataMachine1($date, 'late comers'))
-            $user_data[0] = $this->parseDataMachine1($date, 'late comers');
-        if ($this->parseDataMachine2($date, 'late comers'))
+            array_push($user_data,$this->parseDataMachine1($date, 'late comers'));
+        if (!empty($this->parseDataMachine2($date, 'late comers')))
             $user_data = array_merge($user_data[0], $this->parseDataMachine2($date, 'late comers'));
         $total_count = count($user_data);
         // dd($total_count);
@@ -390,12 +389,15 @@ class ExecutiveController extends Controller
         $date = date('Y-m-d');
         $machine1 = $this->parseDataMachine1($date,$request->status);
         $machine2 = $this->parseDataMachine2($date,$request->status);
-        $user_data =array([]);
+        $user_data =array();
+        $total_count=0;
         if (count($machine1))
             $user_data[0] = $machine1;
         if (count($machine2))
             $user_data = array_merge($user_data[0], $machine2);
         $total_count = count($user_data);
+        if(isset($user_data[0]))
+            $total_count = count($user_data[0]);
         return response()->json($total_count);
     }
     public function attendance_welcome()
