@@ -184,5 +184,11 @@ DGME | Daily Attendance
         }
 
     }
+   
+</script>
+<script>
+ $('#example').DataTable( {
+        "order": [[ 3, "desc" ]]
+    } );
 </script>
 @endsection

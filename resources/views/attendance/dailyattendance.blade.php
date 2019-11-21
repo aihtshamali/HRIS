@@ -60,9 +60,10 @@ DGME | Daily Attendance
                         @if (isset($value['Check-In']->comments->comments) && $value['Check-In']->comments->date==$date)
                         <span class="outgoingstatus"> {{$value['Check-In']->comments->comments}} </span>
                         @else
-                        <span class="outgoingstatus">{{isset($value['Check-Out']->time) ? $value['Check-Out']->status :isset($value['Check-Out']->status) ? $value['Check-Out']->status : '-'}}
+                        <span class="outgoingstatus">{{ isset($value['Check-Out']->status) ? $value['Check-Out']->status  : '-'}}
                         </span>
                         @endif
+                        <!-- : isset($value['Check-Out']->status) ? $value['Check-Out']->status -->
                     </td>
                     <td>
                         <form action="{{route('attendance_remarks')}}">
