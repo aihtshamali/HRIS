@@ -301,7 +301,9 @@ class ExecutiveController extends Controller
         if (!empty($this->parseDataMachine2($date, 'present')))
             $user_data=array_merge($user_data[0],$this->parseDataMachine2($date, 'present'));
         // dd($user_data);
-        return view('attendance.present', compact('user_data'));
+        return view('attendance.dailyattendance', compact('user_data','date'));
+
+        // return view('attendance.present', compact('user_data'));
     }
     public function Absent(Request $request)
     {
@@ -315,7 +317,10 @@ class ExecutiveController extends Controller
             array_push($user_data,$this->parseDataMachine1($date, 'absent'));
         if (!empty($this->parseDataMachine2($date, 'absent')))
             $user_data=array_merge($user_data[0],$this->parseDataMachine2($date, 'absent'));
-        return view('attendance.Absent', compact('user_data'));
+
+        return view('attendance.dailyattendance', compact('user_data','date'));
+
+            // return view('attendance.Absent', compact('user_data'));
     }
     public function lateComer()
     {
@@ -332,7 +337,9 @@ class ExecutiveController extends Controller
             $user_data = array_merge($user_data[0], $this->parseDataMachine2($date, 'late comers'));
         $total_count = count($user_data);
         // dd($total_count);
-        return view('attendance.lateComer', compact('user_data'));
+        return view('attendance.dailyattendance', compact('user_data','date'));
+
+        // return view('attendance.lateComer', compact('user_data'));
     }
     public function dispatches()
     {
